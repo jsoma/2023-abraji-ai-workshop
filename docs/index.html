@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>AI Tools for Journalism</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Abraji AI tools website_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Abraji AI tools website_files/libs/quarto-html/quarto.js"></script>
+<script src="Abraji AI tools website_files/libs/quarto-html/popper.min.js"></script>
+<script src="Abraji AI tools website_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Abraji AI tools website_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Abraji AI tools website_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Abraji AI tools website_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Abraji AI tools website_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Abraji AI tools website_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Abraji AI tools website_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a>
+  <ul class="collapse">
+  <li><a href="#sentiment-analysis" id="toc-sentiment-analysis" class="nav-link" data-scroll-target="#sentiment-analysis">Sentiment analysis</a></li>
+  <li><a href="#training-custom-models" id="toc-training-custom-models" class="nav-link" data-scroll-target="#training-custom-models">Training custom models</a></li>
+  <li><a href="#fine-tuned-models" id="toc-fine-tuned-models" class="nav-link" data-scroll-target="#fine-tuned-models">Fine-tuned models</a></li>
+  <li><a href="#large-language-models" id="toc-large-language-models" class="nav-link" data-scroll-target="#large-language-models">Large language models</a></li>
+  <li><a href="#zero-shot-classification" id="toc-zero-shot-classification" class="nav-link" data-scroll-target="#zero-shot-classification">Zero-shot classification</a></li>
+  </ul></li>
+  <li><a href="#named-entity-recognition" id="toc-named-entity-recognition" class="nav-link" data-scroll-target="#named-entity-recognition">Named Entity Recognition</a>
+  <ul class="collapse">
+  <li><a href="#using-spacy" id="toc-using-spacy" class="nav-link" data-scroll-target="#using-spacy">Using spaCy</a></li>
+  <li><a href="#using-an-llm" id="toc-using-an-llm" class="nav-link" data-scroll-target="#using-an-llm">Using an LLM</a></li>
+  </ul></li>
+  <li><a href="#document-search-and-similarity" id="toc-document-search-and-similarity" class="nav-link" data-scroll-target="#document-search-and-similarity">Document search and similarity</a></li>
+  <li><a href="#limitations-of-large-language-models" id="toc-limitations-of-large-language-models" class="nav-link" data-scroll-target="#limitations-of-large-language-models">Limitations of large language models</a></li>
+  <li><a href="#image-based-models" id="toc-image-based-models" class="nav-link" data-scroll-target="#image-based-models">Image-based models</a>
+  <ul class="collapse">
+  <li><a href="#image-classification" id="toc-image-classification" class="nav-link" data-scroll-target="#image-classification">Image classification</a></li>
+  <li><a href="#semantic-segmentation" id="toc-semantic-segmentation" class="nav-link" data-scroll-target="#semantic-segmentation">Semantic segmentation</a></li>
+  <li><a href="#object-detection" id="toc-object-detection" class="nav-link" data-scroll-target="#object-detection">Object detection</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AI Tools for Journalism</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Abraji Conference 2023</p>
+<p>Jonathan Soma</p>
+<p><a href="mailto:js4571@columbia.edu">js4571@columbia.edu</a></p>
+<p><a href="https://twitter.com/dangerscarf/"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Models are what AI and machine learning are both based on. You have probably heard of some:</p>
+<ul>
+<li><strong>Text models:</strong> GPT-2, GPT-3, GPT-3.5-turbo, GPT-4, Bard, Claude, LLaMa</li>
+<li><strong>Image models:</strong> Stable Diffusion, Midjourney, DALL-E 2, Imagen</li>
+</ul>
+<p>You give them an input, they give you an output. It sounds like a silly definition, but it’s true!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/how-models-work.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">How models work</figcaption>
+</figure>
+</div>
+<p>There are several major categories of models.</p>
+<ul>
+<li>Models that are trained on small amounts of data, just for one job</li>
+<li>Models that are trained on large amounts of data, then fine-tuned for one job</li>
+<li>Models that are trained on HUGE amounts of data and can already do everything</li>
+</ul>
+</section>
+<section id="classification" class="level2">
+<h2 class="anchored" data-anchor-id="classification">Classification</h2>
+<section id="sentiment-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="sentiment-analysis">Sentiment analysis</h3>
+<p>Sentiment analysis says whether something is <strong>positive</strong> or <strong>negative</strong>. If we wanted to change the image above to reflect the specific knowledge of this model, it might look like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/sa-model.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">A sentiment analysis model</figcaption>
+</figure>
+</div>
+<p><strong>Let’s try sentiment analysis!</strong> Here is a small example, using the <code>distilbert-base-uncased-finetuned-sst-2-english</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we'll install the "transformers" library from Hugging Face</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"I enjoyed eating the sandwich"</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"9a3ab1344f834f49bb218ac900fa6349","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d2f9cc0d55b445e1aa190c00e7656207","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f20506ea32d64ad2ad886545276d2e56","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"6bbedb03b4694d648741a8107e9875a1","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>[{'label': 'POSITIVE', 'score': 0.9996883869171143}]</code></pre>
+</div>
+</div>
+<p>Models are not perfect, and they only know what they know. If we <a href="https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english">read the details of the model</a> we learn it is based on English. Because of this, maybe it is not very good at Portuguese?</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>[{'label': 'POSITIVE', 'score': 0.5782410502433777}]</code></pre>
+</div>
+</div>
+<p>If we want to use Portuguese, we probably need a multi-lingual model. We could also find a model that <em>only</em> knows Portuguese, but it’s probably easier to find a model that speaks many languages and includes Portuguese.</p>
+<p>We use <a href="https://huggingface.co/models?language=multilingual&amp;sort=downloads&amp;search=sentiment">the Hugging Face website</a> to find one that looks promising:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/searching-for-pt.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Searching the Hugging Face model hub</figcaption>
+</figure>
+</div>
+<p>We can read <a href="https://huggingface.co/cardiffnlp/twitter-xlm-roberta-base-sentiment">details here</a>, which includes this paragraph:</p>
+<blockquote class="blockquote">
+<p>This is a multilingual XLM-roBERTa-base model trained on ~198M tweets and finetuned for sentiment analysis. The sentiment fine-tuning was done on 8 languages (Ar, En, Fr, De, Hi, It, Sp, Pt) but it can be used for more languages (see paper for details).</p>
+</blockquote>
+<p><code>Pt</code> is Portuguese, so it sounds good to me!</p>
+<p>To use this new model, which we just replace <code>model="..."</code> with its name.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"cardiffnlp/twitter-xlm-roberta-base-sentiment"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"66e053eb159f4dd3a80e808e61a9d190","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"2859d3bcda58485dae5795d6876a0189","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"9c5e3348ffbe49fa845155663dc41add","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0ebd2cb5f4e44a2195fa8a71383308f4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>[{'label': 'positive', 'score': 0.8415056467056274}]</code></pre>
+</div>
+</div>
+<p>Wonderful! So far we have learned:</p>
+<ul>
+<li>There isn’t just one “sentiment analysis” – different models give different results!</li>
+<li>Different models might perform better or worse at different tasks or languages</li>
+</ul>
+<p>This is because they are <strong>trained</strong> or <strong>fine-tuned</strong> in different ways.</p>
+</section>
+<section id="training-custom-models" class="level3">
+<h3 class="anchored" data-anchor-id="training-custom-models">Training custom models</h3>
+<p>For sentiment analysis, one traditional way of training a model would be to show it examples of positive or negative sentences, and say “this one is positive!” or “this one is negative!” Over time the machine learns which words are associated with a positive sentence, and which are associated with a negative sentence.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/training-1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Training a model</figcaption>
+</figure>
+</div>
+<p>This doesn’t have to be about sentiment analysis, though! You can use this to put text into <em>any</em> type of categoy. A <strong>classification model</strong> is the general name for a model that puts content into different categories (or classes).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/classification-model.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Classification model</figcaption>
+</figure>
+</div>
+<p>Classification models are common in <strong>investigative journalism</strong> when you have to analyze large amounts of data. You read several hundred documents, and mark the ones you are interested in. You use this to train a model, and the model then reads the rest for you, marking the interesting ones.</p>
+<p>For example, the Washington Post had a model <a href="https://www.washingtonpost.com/technology/2019/11/22/apple-says-its-app-store-is-safe-trusted-place-we-found-reports-unwanted-sexual-behavior-six-apps-some-targeting-minors/">read thousands of app store reviews</a> to find ones about unwanted sexual behavior on random chat apps. You can see a technical writeup I made of it <a href="https://investigate.ai/wapo-app-reviews/predict-reviews/">here</a>.</p>
+<p>Another example, the LA Times used a classifier to <a href="https://www.latimes.com/local/la-me-crimestats-lapd-20140810-story.html">examine crimes that were classified as either minor or serious</a>, and determined the Los Angeles Police Department was misclassifying crimes. You can find my walkthroughs of that <a href="https://investigate.ai/latimes-crime-classification/using-a-classifier-to-find-misclassified-crimes/">here</a> or <a href="https://investigate.ai/latimes-crime-classification/walkthrough/">here</a>.</p>
+<p>One problem with these models is it is difficult for them to learn words as easily as people. For example, the words below all relate to the same action, but a classifier might see them all as very different words.</p>
+<ul>
+<li>Fish, fishes, fishing, fished</li>
+<li>correr, correndo, correu, correm</li>
+</ul>
+<p>You can use <a href="https://investigate.ai/text-analysis/stemming-and-lemmatization/">stemming and lemmatization</a> to fix the problem, but there are easier ways!</p>
+</section>
+<section id="fine-tuned-models" class="level3">
+<h3 class="anchored" data-anchor-id="fine-tuned-models">Fine-tuned models</h3>
+<p>Instead of having a model learn language from zero, you can also use a pre-built model, then provide it a little extra information for your purpose. This is called “fine tuning.”</p>
+<p>For example, we can look at <a href="https://huggingface.co/cardiffnlp/twitter-xlm-roberta-base-sentiment">the details</a> for the <code>cardiffnlp/twitter-xlm-roberta-base-sentiment</code> model we used before:</p>
+<blockquote class="blockquote">
+<p>This is a multilingual XLM-roBERTa-base model <strong>trained on ~198M tweets</strong> and <strong>finetuned for sentiment analysis</strong>. The sentiment fine-tuning was done on 8 languages (Ar, En, Fr, De, Hi, It, Sp, Pt) but it can be used for more languages (see paper for details).</p>
+</blockquote>
+<p>It read almost 200 million tweets to learn how the language in tweets works, then it was taught positive and negative sentiment afterwards. These models almost always perform better than the small custom models from the previous section.</p>
+<p>To make a fine-tuned model, you can use the <a href="https://ui.autotrain.huggingface.co/">Hugging Face AutoTrainer</a> to make it very easily. You upload a spreadsheet of your marked dataset, then it fine-tunes several models for you, and shows you the one that performed the best.</p>
+<p>For example, <a href="https://huggingface.co/wendys-llc/creepy-wapo">this is a fine-tuned model</a> I made for the Washington Post comments project. You can use it exactly like the sentiment analysis one! Let’s try it with two sentences:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(model<span class="op">=</span><span class="st">"wendys-llc/creepy-wapo"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I love the app, talking to people is fun"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Be careful talking to men, they all want nudes :("</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"c1c3562d600a4a6baed2c6e488302e3a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>[{'label': '0.0', 'score': 0.998849630355835},
+ {'label': '1.0', 'score': 0.8436580300331116}]</code></pre>
+</div>
+</div>
+<p>You can see the first one is marked <code>0</code> (not creepy) and the second is marked <code>1</code> (creepy behavior). They also get a score as to how confident the model is that it’s making an accurate decision.</p>
+<p>This model is based on a fine-tuned version of <a href="https://huggingface.co/docs/transformers/model_doc/deberta-v2">DeBERTa</a>, a language model from Microsoft. You don’t have to pick the model: Hugging Face automatically fine-tunes five different language models for you and you can pick the best-performing one!</p>
+</section>
+<section id="large-language-models" class="level3">
+<h3 class="anchored" data-anchor-id="large-language-models">Large language models</h3>
+<p>Large language models have changed everything! They are “large” because they know a lot more than previous models, and can do many tasks <em>without</em> fine tuning. They’ve read so much of the internet that they automatically know what positive and negative statements are!</p>
+<p>You might be familiar with using ChatGPT to talk to the GPT model, but you can also use it in Python through an API. You need to <a href="https://platform.openai.com/">register for an API key</a> for the code below to work.</p>
+<p>I personally like to use tools like GPT with <a href="https://python.langchain.com/docs/get_started/quickstart">Langchain</a>, a library that makes working with large language models a little easier. After you set up an API key, you then need to install the libraries for both <code>openai</code> and <code>langchain</code>.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q <span class="op">--</span>upgrade openai langchain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(<span class="st">"Give me a recipe for chocolate-chip cookies"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sure! Here's a classic recipe for chocolate chip cookies:
+
+Ingredients:
+- 1 cup unsalted butter, softened
+- 1 cup granulated sugar
+- 1 cup packed brown sugar
+- 2 large eggs
+- 1 teaspoon vanilla extract
+- 3 cups all-purpose flour
+- 1 teaspoon baking soda
+- 1/2 teaspoon salt
+- 2 cups chocolate chips
+
+Instructions:
+1. Preheat your oven to 375°F (190°C). Line a baking sheet with parchment paper or silicone baking mat.
+
+2. In a large mixing bowl, cream together the softened butter, granulated sugar, and brown sugar until light and fluffy.
+
+3. Beat in the eggs, one at a time, followed by the vanilla extract. Mix well after each addition.
+
+4. In a separate bowl, whisk together the flour, baking soda, and salt. Gradually add the dry ingredients to the wet ingredients and mix until just combined. Avoid overmixing.
+
+5. Stir in the chocolate chips until evenly distributed throughout the dough.
+
+6. Using a cookie scoop or a tablespoon, drop rounded balls of dough onto the prepared baking sheet, spacing them about 2 inches apart.
+
+7. Bake in the preheated oven for 9-11 minutes, or until the cookies are golden brown around the edges. The centers may still appear slightly undercooked, but they will firm up as they cool.
+
+8. Allow the cookies to cool on the baking sheet for 5 minutes, then transfer them to a wire rack to cool completely.
+
+9. Enjoy your homemade chocolate chip cookies with a glass of milk or as a sweet treat!
+
+Note: Feel free to customize your cookies by adding chopped nuts, using different types of chocolate chips, or incorporating other mix-ins like shredded coconut or dried fruit.</code></pre>
+</div>
+</div>
+</section>
+<section id="zero-shot-classification" class="level3">
+<h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h3>
+<p>We can now create a classifier using GPT <em>without training it at all</em>. We just need to tell it what we are looking for! This is called <strong>zero-shot classification</strong> because it takes zero examples for the classifier to learn.</p>
+<p>For example, maybe I want to classify the text of a bill.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: A Bill to Regulate the Sulfur Emissions of Coal-Fired Energy</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">Plants in the State of New York.</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ENVIRONMENT</code></pre>
+</div>
+</div>
+<p>It’s so easy!!! You can also make use of <a href="https://www.w3schools.com/python/ref_string_format.asp">Python’s <code>.format</code> method</a> to make things even simpler if you want to make a lot of requests.</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(template.<span class="bu">format</span>(bill_text<span class="op">=</span><span class="st">"This fills in the spot in the template"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Categorize the following text as being about ENVIRONMENT, GUN CONTROL,
+or IMMIGRATION. Respond with only the category.
+
+Text: This fills in the spot in the template
+</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>bills <span class="op">=</span> [</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Allow Additional Refugees In Upstate New York"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Close Down Coal-fired Power Plants"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Banning Assault Rifles at Public Events"</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bill <span class="kw">in</span> bills:</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> template.<span class="bu">format</span>(bill_text<span class="op">=</span>bill)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(bill, <span class="st">"is"</span>, response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A Bill to Allow Additional Refugees In Upstate New York is IMMIGRATION
+A Bill to Close Down Coal-fired Power Plants is ENVIRONMENT
+A Bill to Banning Assault Rifles at Public Events is GUN CONTROL</code></pre>
+</div>
+</div>
+<p>There is also <strong>few-shot classification</strong> which provides several examples to the LLM when you want to classify something. For example, I might provide two or three tricky situations or edge cases in the prompt so the classifier knows what I really want.</p>
+</section>
+</section>
+<section id="named-entity-recognition" class="level2">
+<h2 class="anchored" data-anchor-id="named-entity-recognition">Named Entity Recognition</h2>
+<p>Named entity recognition is the ability to recognize people, places, companies, and other things inside of your text. It’s like classification, but for <em>parts</em> of a text. It’s often used to extract the names of people from documents.</p>
+<section id="using-spacy" class="level3">
+<h3 class="anchored" data-anchor-id="using-spacy">Using spaCy</h3>
+<p>Traditionally, you would use a tool like <a href="https://spacy.io/">spaCy</a> to do this. You’d probably still do that, honestly, it works pretty well and (unlike GPT models) it’s free!</p>
+<p>We’ll start by installing spaCy and downloading two models: one is a medium-sized English model, and the other is focused on Portuguese. You can find these models on <a href="https://spacy.io/usage">the spaCy usage page</a>.</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q spacy</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download en_core_web_md</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download pt_core_news_lg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now let’s try them both out. We’ll start with <code>en_core_web_md</code> for English text.</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo."</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jonathan Soma PERSON
+the Abraji Conference FAC
+Sāo Paulo GPE</code></pre>
+</div>
+</div>
+<p>Does it work as well for Portuguese?</p>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jonathan Soma PERSON
+Congresso ORG</code></pre>
+</div>
+</div>
+<p>Maybe we can also try the specific Portuguese model to see if it performs any better.</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"pt_core_news_lg"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jonathan Soma PER
+Congresso da Abraji MISC
+São Paulo LOC</code></pre>
+</div>
+</div>
+</section>
+<section id="using-an-llm" class="level3">
+<h3 class="anchored" data-anchor-id="using-an-llm">Using an LLM</h3>
+<p>In the same way we can use an LLM for classification, we can also use it for named entity recognition!</p>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo.</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jonathan Soma (PERSON), Abraji Conference (EVENT), Sāo Paulo (LOCATION)</code></pre>
+</div>
+</div>
+<p>I didn’t really want those parentheses, but it’s pretty good! Let’s see how it works with Portuguese:</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo.</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jonathan Soma - PERSON
+Congresso da Abraji - EVENT
+São Paulo - LOCATION</code></pre>
+</div>
+</div>
+<p>Notice it <strong>didn’t listen to my instructions perfectly!</strong> Instead of using a comma to separate the entity and type, it used a hyphen instead. Large language models can be slightly unpredictabe, and you often need to be aggressive to keep it doing what you want.</p>
+</section>
+</section>
+<section id="document-search-and-similarity" class="level2">
+<h2 class="anchored" data-anchor-id="document-search-and-similarity">Document search and similarity</h2>
+<p>Investigations often involve combing through documents that are in different languages. <a href="https://qz.com/1786896/ai-for-investigations-sorting-through-the-luanda-leaks">How Quartz used AI to sort through the Luanda Leaks</a> gives a good background on the difficulty involved in the process!</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q sentence<span class="op">-</span>transformers sentencepiece</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the code below we generate <strong>text embeddings</strong>. You can read <a href="https://investigate.ai/text-analysis/word-embeddings/">a writeup of mine about embeddings here</a>, but the short description is that words and sentences are turned into concepts. Instead of matches based on exact words, or even fish-fishes-fishing, you can match with general ideas.</p>
+<p>As a bonus: if you use a multi-lingual model, the same concepts can be matched even if the documents are in different languages!</p>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [<span class="st">"This is an example sentence"</span>]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(embeddings[<span class="dv">0</span>][:<span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 0.0676569   0.06349581  0.0487131   0.07930496  0.03744796  0.00265277
+  0.03937485 -0.00709837  0.0593615   0.03153696  0.06009803 -0.05290522
+  0.04060676 -0.02593078  0.02984274  0.00112689  0.07351495 -0.05038185
+ -0.12238666  0.02370274  0.02972649  0.04247681  0.0256338   0.00199517
+ -0.05691912 -0.02715985 -0.03290359  0.06602488  0.11900704 -0.04587924
+ -0.07262138 -0.03258408  0.05234135  0.04505523  0.00825302  0.03670237
+ -0.01394151  0.06539196 -0.02642729  0.00020634 -0.01366437 -0.03628108
+ -0.0195043  -0.02897387  0.03942709 -0.08840913  0.00262434  0.01367143
+  0.04830637 -0.03115652]</code></pre>
+</div>
+</div>
+<p>Those numbers above might look awful, but they are how computers think about concepts! If two pieces of text have similar numbers, they’re probably about the same thing (…kind of).</p>
+<p>Let’s look at a better example of how a single-language and multi-language embedding might make sentences more or less similar to each other.</p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Molly ate a fish"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Jen consumed a carp"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I would like to sell you a house"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Я пытаюсь купить дачу"</span>, <span class="co"># I'm trying to buy a summer home</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"J'aimerais vous louer un grand appartement"</span>, <span class="co"># I would like to rent a large apartment to you</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a wonderful investment opportunity"</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Это прекрасная возможность для инвестиций"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"C'est une merveilleuse opportunité d'investissement"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"これは素晴らしい投資機会です"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"野球はあなたが思うよりも面白いことがあります"</span>, <span class="co"># baseball can be more interesting than you think</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Baseball can be interesting than you'd think"</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<style type="text/css">
+#T_040a6_row0_col0, #T_040a6_row1_col1, #T_040a6_row2_col2, #T_040a6_row3_col3, #T_040a6_row4_col4, #T_040a6_row5_col5, #T_040a6_row6_col6, #T_040a6_row7_col7, #T_040a6_row8_col8, #T_040a6_row9_col9, #T_040a6_row10_col10 {
+  background-color: #023858;
+  color: #f1f1f1;
+}
+#T_040a6_row0_col1, #T_040a6_row1_col0 {
+  background-color: #4e9ac6;
+  color: #f1f1f1;
+}
+#T_040a6_row0_col2, #T_040a6_row0_col8, #T_040a6_row2_col0, #T_040a6_row2_col9, #T_040a6_row8_col0, #T_040a6_row9_col2 {
+  background-color: #ebe6f2;
+  color: #000000;
+}
+#T_040a6_row0_col3, #T_040a6_row3_col0 {
+  background-color: #dddbec;
+  color: #000000;
+}
+#T_040a6_row0_col4, #T_040a6_row0_col10, #T_040a6_row4_col0, #T_040a6_row5_col8, #T_040a6_row8_col5, #T_040a6_row10_col0 {
+  background-color: #ece7f2;
+  color: #000000;
+}
+#T_040a6_row0_col5, #T_040a6_row5_col0 {
+  background-color: #f8f1f8;
+  color: #000000;
+}
+#T_040a6_row0_col6, #T_040a6_row1_col3, #T_040a6_row3_col1, #T_040a6_row6_col0 {
+  background-color: #e9e5f1;
+  color: #000000;
+}
+#T_040a6_row0_col7, #T_040a6_row7_col0 {
+  background-color: #f7f0f7;
+  color: #000000;
+}
+#T_040a6_row0_col9, #T_040a6_row1_col10, #T_040a6_row2_col6, #T_040a6_row6_col2, #T_040a6_row9_col0, #T_040a6_row10_col1 {
+  background-color: #ede7f2;
+  color: #000000;
+}
+#T_040a6_row1_col2, #T_040a6_row2_col1 {
+  background-color: #e7e3f0;
+  color: #000000;
+}
+#T_040a6_row1_col4, #T_040a6_row4_col1 {
+  background-color: #f1ebf5;
+  color: #000000;
+}
+#T_040a6_row1_col5, #T_040a6_row2_col7, #T_040a6_row5_col1, #T_040a6_row5_col9, #T_040a6_row7_col2, #T_040a6_row9_col5 {
+  background-color: #f0eaf4;
+  color: #000000;
+}
+#T_040a6_row1_col6, #T_040a6_row6_col1 {
+  background-color: #faf2f8;
+  color: #000000;
+}
+#T_040a6_row1_col7, #T_040a6_row4_col10, #T_040a6_row7_col1, #T_040a6_row10_col4 {
+  background-color: #f1ebf4;
+  color: #000000;
+}
+#T_040a6_row1_col8, #T_040a6_row3_col7, #T_040a6_row7_col3, #T_040a6_row8_col1 {
+  background-color: #dedcec;
+  color: #000000;
+}
+#T_040a6_row1_col9, #T_040a6_row9_col1 {
+  background-color: #d6d6e9;
+  color: #000000;
+}
+#T_040a6_row2_col3, #T_040a6_row3_col2 {
+  background-color: #d2d2e7;
+  color: #000000;
+}
+#T_040a6_row2_col4, #T_040a6_row4_col2 {
+  background-color: #e0dded;
+  color: #000000;
+}
+#T_040a6_row2_col5, #T_040a6_row5_col2 {
+  background-color: #88b1d4;
+  color: #000000;
+}
+#T_040a6_row2_col8, #T_040a6_row8_col2 {
+  background-color: #eee8f3;
+  color: #000000;
+}
+#T_040a6_row2_col10, #T_040a6_row7_col10, #T_040a6_row10_col2, #T_040a6_row10_col7 {
+  background-color: #eee9f3;
+  color: #000000;
+}
+#T_040a6_row3_col4, #T_040a6_row4_col3 {
+  background-color: #d1d2e6;
+  color: #000000;
+}
+#T_040a6_row3_col5, #T_040a6_row5_col3 {
+  background-color: #e3e0ee;
+  color: #000000;
+}
+#T_040a6_row3_col6, #T_040a6_row6_col3 {
+  background-color: #69a5cc;
+  color: #f1f1f1;
+}
+#T_040a6_row3_col8, #T_040a6_row8_col3 {
+  background-color: #a1bbda;
+  color: #000000;
+}
+#T_040a6_row3_col9, #T_040a6_row9_col3 {
+  background-color: #9cb9d9;
+  color: #000000;
+}
+#T_040a6_row3_col10, #T_040a6_row10_col3 {
+  background-color: #fff7fb;
+  color: #000000;
+}
+#T_040a6_row4_col5, #T_040a6_row5_col4 {
+  background-color: #eae6f1;
+  color: #000000;
+}
+#T_040a6_row4_col6, #T_040a6_row6_col4 {
+  background-color: #8fb4d6;
+  color: #000000;
+}
+#T_040a6_row4_col7, #T_040a6_row7_col4 {
+  background-color: #3d93c2;
+  color: #f1f1f1;
+}
+#T_040a6_row4_col8, #T_040a6_row8_col4 {
+  background-color: #cdd0e5;
+  color: #000000;
+}
+#T_040a6_row4_col9, #T_040a6_row9_col4 {
+  background-color: #dad9ea;
+  color: #000000;
+}
+#T_040a6_row5_col6, #T_040a6_row6_col5 {
+  background-color: #f3edf5;
+  color: #000000;
+}
+#T_040a6_row5_col7, #T_040a6_row7_col5 {
+  background-color: #c1cae2;
+  color: #000000;
+}
+#T_040a6_row5_col10, #T_040a6_row10_col5 {
+  background-color: #d9d8ea;
+  color: #000000;
+}
+#T_040a6_row6_col7, #T_040a6_row7_col6 {
+  background-color: #acc0dd;
+  color: #000000;
+}
+#T_040a6_row6_col8, #T_040a6_row8_col6 {
+  background-color: #b0c2de;
+  color: #000000;
+}
+#T_040a6_row6_col9, #T_040a6_row9_col6 {
+  background-color: #abbfdc;
+  color: #000000;
+}
+#T_040a6_row6_col10, #T_040a6_row10_col6 {
+  background-color: #f4eef6;
+  color: #000000;
+}
+#T_040a6_row7_col8, #T_040a6_row8_col7 {
+  background-color: #a8bedc;
+  color: #000000;
+}
+#T_040a6_row7_col9, #T_040a6_row9_col7 {
+  background-color: #c8cde4;
+  color: #000000;
+}
+#T_040a6_row8_col9, #T_040a6_row9_col8 {
+  background-color: #3790c0;
+  color: #f1f1f1;
+}
+#T_040a6_row8_col10, #T_040a6_row9_col10, #T_040a6_row10_col8, #T_040a6_row10_col9 {
+  background-color: #fdf5fa;
+  color: #000000;
+}
+</style>
+
+<table id="T_040a6" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_040a6_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Molly ate a fish</th>
+<th id="T_040a6_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Jen consumed a carp</th>
+<th id="T_040a6_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">I would like to sell you a house</th>
+<th id="T_040a6_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Я пытаюсь купить дачу</th>
+<th id="T_040a6_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">J'aimerais vous louer un grand appartement</th>
+<th id="T_040a6_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">This is a wonderful investment opportunity</th>
+<th id="T_040a6_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Это прекрасная возможность для инвестиций</th>
+<th id="T_040a6_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">C'est une merveilleuse opportunité d'investissement</th>
+<th id="T_040a6_level0_col8" class="col_heading level0 col8" data-quarto-table-cell-role="th">これは素晴らしい投資機会です</th>
+<th id="T_040a6_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">野球はあなたが思うよりも面白いことがあります</th>
+<th id="T_040a6_level0_col10" class="col_heading level0 col10" data-quarto-table-cell-role="th">Baseball can be interesting than you'd think</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_040a6_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Molly ate a fish</td>
+<td id="T_040a6_row0_col0" class="data row0 col0">1.000000</td>
+<td id="T_040a6_row0_col1" class="data row0 col1">0.526053</td>
+<td id="T_040a6_row0_col2" class="data row0 col2">0.025476</td>
+<td id="T_040a6_row0_col3" class="data row0 col3">0.098335</td>
+<td id="T_040a6_row0_col4" class="data row0 col4">0.020435</td>
+<td id="T_040a6_row0_col5" class="data row0 col5">-0.065293</td>
+<td id="T_040a6_row0_col6" class="data row0 col6">0.035801</td>
+<td id="T_040a6_row0_col7" class="data row0 col7">-0.062506</td>
+<td id="T_040a6_row0_col8" class="data row0 col8">0.027358</td>
+<td id="T_040a6_row0_col9" class="data row0 col9">0.017622</td>
+<td id="T_040a6_row0_col10" class="data row0 col10">0.023445</td>
+</tr>
+<tr class="even">
+<td id="T_040a6_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Jen consumed a carp</td>
+<td id="T_040a6_row1_col0" class="data row1 col0">0.526053</td>
+<td id="T_040a6_row1_col1" class="data row1 col1">1.000000</td>
+<td id="T_040a6_row1_col2" class="data row1 col2">0.044178</td>
+<td id="T_040a6_row1_col3" class="data row1 col3">0.035044</td>
+<td id="T_040a6_row1_col4" class="data row1 col4">-0.018194</td>
+<td id="T_040a6_row1_col5" class="data row1 col5">-0.004438</td>
+<td id="T_040a6_row1_col6" class="data row1 col6">-0.078566</td>
+<td id="T_040a6_row1_col7" class="data row1 col7">-0.011418</td>
+<td id="T_040a6_row1_col8" class="data row1 col8">0.090357</td>
+<td id="T_040a6_row1_col9" class="data row1 col9">0.131507</td>
+<td id="T_040a6_row1_col10" class="data row1 col10">0.016100</td>
+</tr>
+<tr class="odd">
+<td id="T_040a6_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">I would like to sell you a house</td>
+<td id="T_040a6_row2_col0" class="data row2 col0">0.025476</td>
+<td id="T_040a6_row2_col1" class="data row2 col1">0.044178</td>
+<td id="T_040a6_row2_col2" class="data row2 col2">1.000000</td>
+<td id="T_040a6_row2_col3" class="data row2 col3">0.154773</td>
+<td id="T_040a6_row2_col4" class="data row2 col4">0.083555</td>
+<td id="T_040a6_row2_col5" class="data row2 col5">0.386736</td>
+<td id="T_040a6_row2_col6" class="data row2 col6">0.017175</td>
+<td id="T_040a6_row2_col7" class="data row2 col7">-0.006744</td>
+<td id="T_040a6_row2_col8" class="data row2 col8">0.010857</td>
+<td id="T_040a6_row2_col9" class="data row2 col9">0.025510</td>
+<td id="T_040a6_row2_col10" class="data row2 col10">0.006353</td>
+</tr>
+<tr class="even">
+<td id="T_040a6_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Я пытаюсь купить дачу</td>
+<td id="T_040a6_row3_col0" class="data row3 col0">0.098335</td>
+<td id="T_040a6_row3_col1" class="data row3 col1">0.035044</td>
+<td id="T_040a6_row3_col2" class="data row3 col2">0.154773</td>
+<td id="T_040a6_row3_col3" class="data row3 col3">1.000000</td>
+<td id="T_040a6_row3_col4" class="data row3 col4">0.159519</td>
+<td id="T_040a6_row3_col5" class="data row3 col5">0.064379</td>
+<td id="T_040a6_row3_col6" class="data row3 col6">0.462397</td>
+<td id="T_040a6_row3_col7" class="data row3 col7">0.092110</td>
+<td id="T_040a6_row3_col8" class="data row3 col8">0.314708</td>
+<td id="T_040a6_row3_col9" class="data row3 col9">0.327675</td>
+<td id="T_040a6_row3_col10" class="data row3 col10">-0.119607</td>
+</tr>
+<tr class="odd">
+<td id="T_040a6_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">J'aimerais vous louer un grand appartement</td>
+<td id="T_040a6_row4_col0" class="data row4 col0">0.020435</td>
+<td id="T_040a6_row4_col1" class="data row4 col1">-0.018194</td>
+<td id="T_040a6_row4_col2" class="data row4 col2">0.083555</td>
+<td id="T_040a6_row4_col3" class="data row4 col3">0.159519</td>
+<td id="T_040a6_row4_col4" class="data row4 col4">1.000000</td>
+<td id="T_040a6_row4_col5" class="data row4 col5">0.032253</td>
+<td id="T_040a6_row4_col6" class="data row4 col6">0.365505</td>
+<td id="T_040a6_row4_col7" class="data row4 col7">0.566635</td>
+<td id="T_040a6_row4_col8" class="data row4 col8">0.172406</td>
+<td id="T_040a6_row4_col9" class="data row4 col9">0.110118</td>
+<td id="T_040a6_row4_col10" class="data row4 col10">-0.013743</td>
+</tr>
+<tr class="even">
+<td id="T_040a6_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">This is a wonderful investment opportunity</td>
+<td id="T_040a6_row5_col0" class="data row5 col0">-0.065293</td>
+<td id="T_040a6_row5_col1" class="data row5 col1">-0.004438</td>
+<td id="T_040a6_row5_col2" class="data row5 col2">0.386736</td>
+<td id="T_040a6_row5_col3" class="data row5 col3">0.064379</td>
+<td id="T_040a6_row5_col4" class="data row5 col4">0.032253</td>
+<td id="T_040a6_row5_col5" class="data row5 col5">1.000000</td>
+<td id="T_040a6_row5_col6" class="data row5 col6">-0.030322</td>
+<td id="T_040a6_row5_col7" class="data row5 col7">0.212230</td>
+<td id="T_040a6_row5_col8" class="data row5 col8">0.023889</td>
+<td id="T_040a6_row5_col9" class="data row5 col9">-0.002844</td>
+<td id="T_040a6_row5_col10" class="data row5 col10">0.112804</td>
+</tr>
+<tr class="odd">
+<td id="T_040a6_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">Это прекрасная возможность для инвестиций</td>
+<td id="T_040a6_row6_col0" class="data row6 col0">0.035801</td>
+<td id="T_040a6_row6_col1" class="data row6 col1">-0.078566</td>
+<td id="T_040a6_row6_col2" class="data row6 col2">0.017175</td>
+<td id="T_040a6_row6_col3" class="data row6 col3">0.462397</td>
+<td id="T_040a6_row6_col4" class="data row6 col4">0.365505</td>
+<td id="T_040a6_row6_col5" class="data row6 col5">-0.030322</td>
+<td id="T_040a6_row6_col6" class="data row6 col6">1.000000</td>
+<td id="T_040a6_row6_col7" class="data row6 col7">0.282414</td>
+<td id="T_040a6_row6_col8" class="data row6 col8">0.267571</td>
+<td id="T_040a6_row6_col9" class="data row6 col9">0.285873</td>
+<td id="T_040a6_row6_col10" class="data row6 col10">-0.040309</td>
+</tr>
+<tr class="even">
+<td id="T_040a6_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">C'est une merveilleuse opportunité d'investissement</td>
+<td id="T_040a6_row7_col0" class="data row7 col0">-0.062506</td>
+<td id="T_040a6_row7_col1" class="data row7 col1">-0.011418</td>
+<td id="T_040a6_row7_col2" class="data row7 col2">-0.006744</td>
+<td id="T_040a6_row7_col3" class="data row7 col3">0.092110</td>
+<td id="T_040a6_row7_col4" class="data row7 col4">0.566635</td>
+<td id="T_040a6_row7_col5" class="data row7 col5">0.212230</td>
+<td id="T_040a6_row7_col6" class="data row7 col6">0.282414</td>
+<td id="T_040a6_row7_col7" class="data row7 col7">1.000000</td>
+<td id="T_040a6_row7_col8" class="data row7 col8">0.292651</td>
+<td id="T_040a6_row7_col9" class="data row7 col9">0.187989</td>
+<td id="T_040a6_row7_col10" class="data row7 col10">0.006793</td>
+</tr>
+<tr class="odd">
+<td id="T_040a6_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">これは素晴らしい投資機会です</td>
+<td id="T_040a6_row8_col0" class="data row8 col0">0.027358</td>
+<td id="T_040a6_row8_col1" class="data row8 col1">0.090357</td>
+<td id="T_040a6_row8_col2" class="data row8 col2">0.010857</td>
+<td id="T_040a6_row8_col3" class="data row8 col3">0.314708</td>
+<td id="T_040a6_row8_col4" class="data row8 col4">0.172406</td>
+<td id="T_040a6_row8_col5" class="data row8 col5">0.023889</td>
+<td id="T_040a6_row8_col6" class="data row8 col6">0.267571</td>
+<td id="T_040a6_row8_col7" class="data row8 col7">0.292651</td>
+<td id="T_040a6_row8_col8" class="data row8 col8">1.000000</td>
+<td id="T_040a6_row8_col9" class="data row8 col9">0.577265</td>
+<td id="T_040a6_row8_col10" class="data row8 col10">-0.100630</td>
+</tr>
+<tr class="even">
+<td id="T_040a6_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">野球はあなたが思うよりも面白いことがあります</td>
+<td id="T_040a6_row9_col0" class="data row9 col0">0.017622</td>
+<td id="T_040a6_row9_col1" class="data row9 col1">0.131507</td>
+<td id="T_040a6_row9_col2" class="data row9 col2">0.025510</td>
+<td id="T_040a6_row9_col3" class="data row9 col3">0.327675</td>
+<td id="T_040a6_row9_col4" class="data row9 col4">0.110118</td>
+<td id="T_040a6_row9_col5" class="data row9 col5">-0.002844</td>
+<td id="T_040a6_row9_col6" class="data row9 col6">0.285873</td>
+<td id="T_040a6_row9_col7" class="data row9 col7">0.187989</td>
+<td id="T_040a6_row9_col8" class="data row9 col8">0.577265</td>
+<td id="T_040a6_row9_col9" class="data row9 col9">1.000000</td>
+<td id="T_040a6_row9_col10" class="data row9 col10">-0.098722</td>
+</tr>
+<tr class="odd">
+<td id="T_040a6_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">Baseball can be interesting than you'd think</td>
+<td id="T_040a6_row10_col0" class="data row10 col0">0.023445</td>
+<td id="T_040a6_row10_col1" class="data row10 col1">0.016100</td>
+<td id="T_040a6_row10_col2" class="data row10 col2">0.006353</td>
+<td id="T_040a6_row10_col3" class="data row10 col3">-0.119607</td>
+<td id="T_040a6_row10_col4" class="data row10 col4">-0.013743</td>
+<td id="T_040a6_row10_col5" class="data row10 col5">0.112804</td>
+<td id="T_040a6_row10_col6" class="data row10 col6">-0.040309</td>
+<td id="T_040a6_row10_col7" class="data row10 col7">0.006793</td>
+<td id="T_040a6_row10_col8" class="data row10 col8">-0.100630</td>
+<td id="T_040a6_row10_col9" class="data row10 col9">-0.098722</td>
+<td id="T_040a6_row10_col10" class="data row10 col10">1.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Sentence that are about the same thing don’t match, just because they’re in different languages! Don’t worry, there are some <a href="https://www.sbert.net/docs/pretrained_models.html#multi-lingual-models">pretrained multilingual models</a>, let’s see how much better that one looks.</p>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/distiluse-base-multilingual-cased-v2'</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<style type="text/css">
+#T_4db7a_row0_col0, #T_4db7a_row1_col1, #T_4db7a_row2_col2, #T_4db7a_row3_col3, #T_4db7a_row4_col4, #T_4db7a_row5_col5, #T_4db7a_row6_col6, #T_4db7a_row7_col7, #T_4db7a_row8_col8, #T_4db7a_row9_col9, #T_4db7a_row10_col10 {
+  background-color: #023858;
+  color: #f1f1f1;
+}
+#T_4db7a_row0_col1, #T_4db7a_row1_col0 {
+  background-color: #93b5d6;
+  color: #000000;
+}
+#T_4db7a_row0_col2, #T_4db7a_row1_col2, #T_4db7a_row2_col0, #T_4db7a_row2_col1 {
+  background-color: #e6e2ef;
+  color: #000000;
+}
+#T_4db7a_row0_col3, #T_4db7a_row3_col0, #T_4db7a_row7_col10, #T_4db7a_row10_col7 {
+  background-color: #d4d4e8;
+  color: #000000;
+}
+#T_4db7a_row0_col4, #T_4db7a_row1_col5, #T_4db7a_row1_col7, #T_4db7a_row4_col0, #T_4db7a_row5_col1, #T_4db7a_row7_col1 {
+  background-color: #f3edf5;
+  color: #000000;
+}
+#T_4db7a_row0_col5, #T_4db7a_row5_col0 {
+  background-color: #faf2f8;
+  color: #000000;
+}
+#T_4db7a_row0_col6, #T_4db7a_row0_col7, #T_4db7a_row6_col0, #T_4db7a_row7_col0 {
+  background-color: #faf3f9;
+  color: #000000;
+}
+#T_4db7a_row0_col8, #T_4db7a_row8_col0 {
+  background-color: #fff7fb;
+  color: #000000;
+}
+#T_4db7a_row0_col9, #T_4db7a_row1_col6, #T_4db7a_row6_col1, #T_4db7a_row9_col0 {
+  background-color: #f4edf6;
+  color: #000000;
+}
+#T_4db7a_row0_col10, #T_4db7a_row1_col4, #T_4db7a_row4_col1, #T_4db7a_row10_col0 {
+  background-color: #f0eaf4;
+  color: #000000;
+}
+#T_4db7a_row1_col3, #T_4db7a_row3_col1 {
+  background-color: #c9cee4;
+  color: #000000;
+}
+#T_4db7a_row1_col8, #T_4db7a_row8_col1 {
+  background-color: #fcf4fa;
+  color: #000000;
+}
+#T_4db7a_row1_col9, #T_4db7a_row2_col8, #T_4db7a_row8_col2, #T_4db7a_row9_col1 {
+  background-color: #e9e5f1;
+  color: #000000;
+}
+#T_4db7a_row1_col10, #T_4db7a_row2_col7, #T_4db7a_row7_col2, #T_4db7a_row10_col1 {
+  background-color: #e4e1ef;
+  color: #000000;
+}
+#T_4db7a_row2_col3, #T_4db7a_row3_col2 {
+  background-color: #7dacd1;
+  color: #f1f1f1;
+}
+#T_4db7a_row2_col4, #T_4db7a_row4_col2 {
+  background-color: #2182b9;
+  color: #f1f1f1;
+}
+#T_4db7a_row2_col5, #T_4db7a_row5_col2 {
+  background-color: #e1dfed;
+  color: #000000;
+}
+#T_4db7a_row2_col6, #T_4db7a_row3_col8, #T_4db7a_row6_col2, #T_4db7a_row8_col3, #T_4db7a_row8_col10, #T_4db7a_row10_col8 {
+  background-color: #dad9ea;
+  color: #000000;
+}
+#T_4db7a_row2_col9, #T_4db7a_row3_col7, #T_4db7a_row7_col3, #T_4db7a_row9_col2 {
+  background-color: #d5d5e8;
+  color: #000000;
+}
+#T_4db7a_row2_col10, #T_4db7a_row6_col10, #T_4db7a_row10_col2, #T_4db7a_row10_col6 {
+  background-color: #d6d6e9;
+  color: #000000;
+}
+#T_4db7a_row3_col4, #T_4db7a_row4_col3 {
+  background-color: #96b6d7;
+  color: #000000;
+}
+#T_4db7a_row3_col5, #T_4db7a_row5_col3 {
+  background-color: #d9d8ea;
+  color: #000000;
+}
+#T_4db7a_row3_col6, #T_4db7a_row6_col3 {
+  background-color: #cacee5;
+  color: #000000;
+}
+#T_4db7a_row3_col9, #T_4db7a_row9_col3 {
+  background-color: #e7e3f0;
+  color: #000000;
+}
+#T_4db7a_row3_col10, #T_4db7a_row10_col3 {
+  background-color: #e8e4f0;
+  color: #000000;
+}
+#T_4db7a_row4_col5, #T_4db7a_row4_col7, #T_4db7a_row4_col9, #T_4db7a_row5_col4, #T_4db7a_row7_col4, #T_4db7a_row9_col4 {
+  background-color: #c5cce3;
+  color: #000000;
+}
+#T_4db7a_row4_col6, #T_4db7a_row6_col4 {
+  background-color: #bbc7e0;
+  color: #000000;
+}
+#T_4db7a_row4_col8, #T_4db7a_row8_col4 {
+  background-color: #c8cde4;
+  color: #000000;
+}
+#T_4db7a_row4_col10, #T_4db7a_row10_col4 {
+  background-color: #d3d4e7;
+  color: #000000;
+}
+#T_4db7a_row5_col6, #T_4db7a_row6_col5 {
+  background-color: #034369;
+  color: #f1f1f1;
+}
+#T_4db7a_row5_col7, #T_4db7a_row7_col5 {
+  background-color: #034165;
+  color: #f1f1f1;
+}
+#T_4db7a_row5_col8, #T_4db7a_row6_col8, #T_4db7a_row8_col5, #T_4db7a_row8_col6 {
+  background-color: #03456c;
+  color: #f1f1f1;
+}
+#T_4db7a_row5_col9, #T_4db7a_row9_col5 {
+  background-color: #e5e1ef;
+  color: #000000;
+}
+#T_4db7a_row5_col10, #T_4db7a_row10_col5 {
+  background-color: #d7d6e9;
+  color: #000000;
+}
+#T_4db7a_row6_col7, #T_4db7a_row7_col6 {
+  background-color: #023f64;
+  color: #f1f1f1;
+}
+#T_4db7a_row6_col9, #T_4db7a_row7_col9, #T_4db7a_row9_col6, #T_4db7a_row9_col7 {
+  background-color: #e0deed;
+  color: #000000;
+}
+#T_4db7a_row7_col8, #T_4db7a_row8_col7 {
+  background-color: #034267;
+  color: #f1f1f1;
+}
+#T_4db7a_row8_col9, #T_4db7a_row9_col8 {
+  background-color: #e0dded;
+  color: #000000;
+}
+#T_4db7a_row9_col10, #T_4db7a_row10_col9 {
+  background-color: #045d92;
+  color: #f1f1f1;
+}
+</style>
+
+<table id="T_4db7a" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_4db7a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Molly ate a fish</th>
+<th id="T_4db7a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Jen consumed a carp</th>
+<th id="T_4db7a_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">I would like to sell you a house</th>
+<th id="T_4db7a_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Я пытаюсь купить дачу</th>
+<th id="T_4db7a_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">J'aimerais vous louer un grand appartement</th>
+<th id="T_4db7a_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">This is a wonderful investment opportunity</th>
+<th id="T_4db7a_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Это прекрасная возможность для инвестиций</th>
+<th id="T_4db7a_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">C'est une merveilleuse opportunité d'investissement</th>
+<th id="T_4db7a_level0_col8" class="col_heading level0 col8" data-quarto-table-cell-role="th">これは素晴らしい投資機会です</th>
+<th id="T_4db7a_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">野球はあなたが思うよりも面白いことがあります</th>
+<th id="T_4db7a_level0_col10" class="col_heading level0 col10" data-quarto-table-cell-role="th">Baseball can be interesting than you'd think</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_4db7a_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Molly ate a fish</td>
+<td id="T_4db7a_row0_col0" class="data row0 col0">1.000000</td>
+<td id="T_4db7a_row0_col1" class="data row0 col1">0.358347</td>
+<td id="T_4db7a_row0_col2" class="data row0 col2">0.058340</td>
+<td id="T_4db7a_row0_col3" class="data row0 col3">0.145439</td>
+<td id="T_4db7a_row0_col4" class="data row0 col4">-0.024103</td>
+<td id="T_4db7a_row0_col5" class="data row0 col5">-0.070145</td>
+<td id="T_4db7a_row0_col6" class="data row0 col6">-0.075333</td>
+<td id="T_4db7a_row0_col7" class="data row0 col7">-0.073496</td>
+<td id="T_4db7a_row0_col8" class="data row0 col8">-0.111467</td>
+<td id="T_4db7a_row0_col9" class="data row0 col9">-0.025614</td>
+<td id="T_4db7a_row0_col10" class="data row0 col10">0.001549</td>
+</tr>
+<tr class="even">
+<td id="T_4db7a_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Jen consumed a carp</td>
+<td id="T_4db7a_row1_col0" class="data row1 col0">0.358347</td>
+<td id="T_4db7a_row1_col1" class="data row1 col1">1.000000</td>
+<td id="T_4db7a_row1_col2" class="data row1 col2">0.059195</td>
+<td id="T_4db7a_row1_col3" class="data row1 col3">0.190241</td>
+<td id="T_4db7a_row1_col4" class="data row1 col4">-0.001941</td>
+<td id="T_4db7a_row1_col5" class="data row1 col5">-0.024359</td>
+<td id="T_4db7a_row1_col6" class="data row1 col6">-0.024816</td>
+<td id="T_4db7a_row1_col7" class="data row1 col7">-0.023295</td>
+<td id="T_4db7a_row1_col8" class="data row1 col8">-0.087019</td>
+<td id="T_4db7a_row1_col9" class="data row1 col9">0.040799</td>
+<td id="T_4db7a_row1_col10" class="data row1 col10">0.067243</td>
+</tr>
+<tr class="odd">
+<td id="T_4db7a_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">I would like to sell you a house</td>
+<td id="T_4db7a_row2_col0" class="data row2 col0">0.058340</td>
+<td id="T_4db7a_row2_col1" class="data row2 col1">0.059195</td>
+<td id="T_4db7a_row2_col2" class="data row2 col2">1.000000</td>
+<td id="T_4db7a_row2_col3" class="data row2 col3">0.418692</td>
+<td id="T_4db7a_row2_col4" class="data row2 col4">0.642746</td>
+<td id="T_4db7a_row2_col5" class="data row2 col5">0.081795</td>
+<td id="T_4db7a_row2_col6" class="data row2 col6">0.118611</td>
+<td id="T_4db7a_row2_col7" class="data row2 col7">0.067805</td>
+<td id="T_4db7a_row2_col8" class="data row2 col8">0.042560</td>
+<td id="T_4db7a_row2_col9" class="data row2 col9">0.144491</td>
+<td id="T_4db7a_row2_col10" class="data row2 col10">0.139300</td>
+</tr>
+<tr class="even">
+<td id="T_4db7a_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Я пытаюсь купить дачу</td>
+<td id="T_4db7a_row3_col0" class="data row3 col0">0.145439</td>
+<td id="T_4db7a_row3_col1" class="data row3 col1">0.190241</td>
+<td id="T_4db7a_row3_col2" class="data row3 col2">0.418692</td>
+<td id="T_4db7a_row3_col3" class="data row3 col3">1.000000</td>
+<td id="T_4db7a_row3_col4" class="data row3 col4">0.351605</td>
+<td id="T_4db7a_row3_col5" class="data row3 col5">0.120679</td>
+<td id="T_4db7a_row3_col6" class="data row3 col6">0.184644</td>
+<td id="T_4db7a_row3_col7" class="data row3 col7">0.144633</td>
+<td id="T_4db7a_row3_col8" class="data row3 col8">0.115598</td>
+<td id="T_4db7a_row3_col9" class="data row3 col9">0.050505</td>
+<td id="T_4db7a_row3_col10" class="data row3 col10">0.046084</td>
+</tr>
+<tr class="odd">
+<td id="T_4db7a_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">J'aimerais vous louer un grand appartement</td>
+<td id="T_4db7a_row4_col0" class="data row4 col0">-0.024103</td>
+<td id="T_4db7a_row4_col1" class="data row4 col1">-0.001941</td>
+<td id="T_4db7a_row4_col2" class="data row4 col2">0.642746</td>
+<td id="T_4db7a_row4_col3" class="data row4 col3">0.351605</td>
+<td id="T_4db7a_row4_col4" class="data row4 col4">1.000000</td>
+<td id="T_4db7a_row4_col5" class="data row4 col5">0.203307</td>
+<td id="T_4db7a_row4_col6" class="data row4 col6">0.238716</td>
+<td id="T_4db7a_row4_col7" class="data row4 col7">0.204762</td>
+<td id="T_4db7a_row4_col8" class="data row4 col8">0.195163</td>
+<td id="T_4db7a_row4_col9" class="data row4 col9">0.201317</td>
+<td id="T_4db7a_row4_col10" class="data row4 col10">0.151998</td>
+</tr>
+<tr class="even">
+<td id="T_4db7a_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">This is a wonderful investment opportunity</td>
+<td id="T_4db7a_row5_col0" class="data row5 col0">-0.070145</td>
+<td id="T_4db7a_row5_col1" class="data row5 col1">-0.024359</td>
+<td id="T_4db7a_row5_col2" class="data row5 col2">0.081795</td>
+<td id="T_4db7a_row5_col3" class="data row5 col3">0.120679</td>
+<td id="T_4db7a_row5_col4" class="data row5 col4">0.203307</td>
+<td id="T_4db7a_row5_col5" class="data row5 col5">1.000000</td>
+<td id="T_4db7a_row5_col6" class="data row5 col6">0.953561</td>
+<td id="T_4db7a_row5_col7" class="data row5 col7">0.964282</td>
+<td id="T_4db7a_row5_col8" class="data row5 col8">0.945246</td>
+<td id="T_4db7a_row5_col9" class="data row5 col9">0.062618</td>
+<td id="T_4db7a_row5_col10" class="data row5 col10">0.133220</td>
+</tr>
+<tr class="odd">
+<td id="T_4db7a_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">Это прекрасная возможность для инвестиций</td>
+<td id="T_4db7a_row6_col0" class="data row6 col0">-0.075333</td>
+<td id="T_4db7a_row6_col1" class="data row6 col1">-0.024816</td>
+<td id="T_4db7a_row6_col2" class="data row6 col2">0.118611</td>
+<td id="T_4db7a_row6_col3" class="data row6 col3">0.184644</td>
+<td id="T_4db7a_row6_col4" class="data row6 col4">0.238716</td>
+<td id="T_4db7a_row6_col5" class="data row6 col5">0.953561</td>
+<td id="T_4db7a_row6_col6" class="data row6 col6">1.000000</td>
+<td id="T_4db7a_row6_col7" class="data row6 col7">0.968368</td>
+<td id="T_4db7a_row6_col8" class="data row6 col8">0.944719</td>
+<td id="T_4db7a_row6_col9" class="data row6 col9">0.084221</td>
+<td id="T_4db7a_row6_col10" class="data row6 col10">0.136699</td>
+</tr>
+<tr class="even">
+<td id="T_4db7a_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">C'est une merveilleuse opportunité d'investissement</td>
+<td id="T_4db7a_row7_col0" class="data row7 col0">-0.073496</td>
+<td id="T_4db7a_row7_col1" class="data row7 col1">-0.023295</td>
+<td id="T_4db7a_row7_col2" class="data row7 col2">0.067805</td>
+<td id="T_4db7a_row7_col3" class="data row7 col3">0.144633</td>
+<td id="T_4db7a_row7_col4" class="data row7 col4">0.204762</td>
+<td id="T_4db7a_row7_col5" class="data row7 col5">0.964282</td>
+<td id="T_4db7a_row7_col6" class="data row7 col6">0.968368</td>
+<td id="T_4db7a_row7_col7" class="data row7 col7">1.000000</td>
+<td id="T_4db7a_row7_col8" class="data row7 col8">0.959357</td>
+<td id="T_4db7a_row7_col9" class="data row7 col9">0.086458</td>
+<td id="T_4db7a_row7_col10" class="data row7 col10">0.146568</td>
+</tr>
+<tr class="odd">
+<td id="T_4db7a_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">これは素晴らしい投資機会です</td>
+<td id="T_4db7a_row8_col0" class="data row8 col0">-0.111467</td>
+<td id="T_4db7a_row8_col1" class="data row8 col1">-0.087019</td>
+<td id="T_4db7a_row8_col2" class="data row8 col2">0.042560</td>
+<td id="T_4db7a_row8_col3" class="data row8 col3">0.115598</td>
+<td id="T_4db7a_row8_col4" class="data row8 col4">0.195163</td>
+<td id="T_4db7a_row8_col5" class="data row8 col5">0.945246</td>
+<td id="T_4db7a_row8_col6" class="data row8 col6">0.944719</td>
+<td id="T_4db7a_row8_col7" class="data row8 col7">0.959357</td>
+<td id="T_4db7a_row8_col8" class="data row8 col8">1.000000</td>
+<td id="T_4db7a_row8_col9" class="data row8 col9">0.091451</td>
+<td id="T_4db7a_row8_col10" class="data row8 col10">0.115392</td>
+</tr>
+<tr class="even">
+<td id="T_4db7a_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">野球はあなたが思うよりも面白いことがあります</td>
+<td id="T_4db7a_row9_col0" class="data row9 col0">-0.025614</td>
+<td id="T_4db7a_row9_col1" class="data row9 col1">0.040799</td>
+<td id="T_4db7a_row9_col2" class="data row9 col2">0.144491</td>
+<td id="T_4db7a_row9_col3" class="data row9 col3">0.050505</td>
+<td id="T_4db7a_row9_col4" class="data row9 col4">0.201317</td>
+<td id="T_4db7a_row9_col5" class="data row9 col5">0.062618</td>
+<td id="T_4db7a_row9_col6" class="data row9 col6">0.084221</td>
+<td id="T_4db7a_row9_col7" class="data row9 col7">0.086458</td>
+<td id="T_4db7a_row9_col8" class="data row9 col8">0.091451</td>
+<td id="T_4db7a_row9_col9" class="data row9 col9">1.000000</td>
+<td id="T_4db7a_row9_col10" class="data row9 col10">0.839617</td>
+</tr>
+<tr class="odd">
+<td id="T_4db7a_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">Baseball can be interesting than you'd think</td>
+<td id="T_4db7a_row10_col0" class="data row10 col0">0.001549</td>
+<td id="T_4db7a_row10_col1" class="data row10 col1">0.067243</td>
+<td id="T_4db7a_row10_col2" class="data row10 col2">0.139300</td>
+<td id="T_4db7a_row10_col3" class="data row10 col3">0.046084</td>
+<td id="T_4db7a_row10_col4" class="data row10 col4">0.151998</td>
+<td id="T_4db7a_row10_col5" class="data row10 col5">0.133220</td>
+<td id="T_4db7a_row10_col6" class="data row10 col6">0.136699</td>
+<td id="T_4db7a_row10_col7" class="data row10 col7">0.146568</td>
+<td id="T_4db7a_row10_col8" class="data row10 col8">0.115392</td>
+<td id="T_4db7a_row10_col9" class="data row10 col9">0.839617</td>
+<td id="T_4db7a_row10_col10" class="data row10 col10">1.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>If you’re interested in how this might work with GPT or other large language model, you might want to check out <a href="https://github.com/jsoma/mediaparty-folktales">this GitHub repo</a>.</p>
+</section>
+<section id="limitations-of-large-language-models" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-of-large-language-models">Limitations of large language models</h2>
+<p>The <strong>knowledge cutoff</strong> is a big one, where they only know what’s in their training data. In the case of GPT, it stopped getting new information in September 2021.</p>
+<p>The <strong>token limit</strong> is another issue, where you can only provide so much information to the AI tool at a time, usually several thousand words. Newer language models have larger token limits – there is a version of GPT-4 that allows 32k tokens, which is around 24,000 words – and AnthropicAI’s Claude <a href="https://www.anthropic.com/index/100k-context-windows">has a 100k context window</a>. This is definitely one area where providers are competing!</p>
+<p>There are ways to get around these problems, which you can see some details of <a href="https://github.com/jsoma/mediaparty-folktales">in my Media Party Chicago 2023 talk</a>. Technically speaking it’s called “in-context learning with semantic search,” and it’s the baseline of all of the “chat with your PDF” kind of tools you might have seen.</p>
+<p>The biggest limitation of an LLM is <strong>hallucinations</strong>, where it will just make things up! My two suggestions for this are <strong>don’t use LLMs as a knowledge base</strong> and <strong>always fact-check</strong>. Even simple tasks are prone to hallucinations: <a href="https://generative-ai-newsroom.com/summaries-in-danish-with-openai-cbb814a119f2">a Danish newspaper found GPT-generated article summaries often contained information not in the original piece</a>.</p>
+</section>
+<section id="image-based-models" class="level2">
+<h2 class="anchored" data-anchor-id="image-based-models">Image-based models</h2>
+<p>Image-based models can allow you to do things like research using aerial and satellite photography, as was done in <a href="https://texty.org.ua/d/2018/amber_eng/">Leprosy of the Land</a> when computer vision could detect illegal amber mines.</p>
+<p>You can view code samples and get more ideas by browsing <a href="https://huggingface.co/models?sort=trending">the Hugging Face website</a>.</p>
+<section id="image-classification" class="level3">
+<h3 class="anchored" data-anchor-id="image-classification">Image classification</h3>
+<p><a href="https://texty.org.ua/d/2018/amber_eng/">Leprosy of the Land</a> was an <strong>image classification</strong> problem, which is practically the same as text classification! If you wanted to do a similar problem, you can similarly train a custom model or fine-tune an existing image model.</p>
+<p>To fine-tune an existing image model, I again recommend <a href="https://ui.autotrain.huggingface.co/">Hugging Face AutoTrain</a>. You upload folders with several examples of each category or class you’re looking for, and it automatically creates a model for you.</p>
+<p>You can see <a href="http://github.com/jsoma/nicar23-huggingface">a tutorial I gave on this (with data) here on GitHub</a>, or <a href="https://huggingface.co/wendys-llc/autotrain-amber-mines-42327108538">the completed model here</a>.</p>
+<iframe src="https://datatrooper-zero-shot-image-classification.hf.space" frameborder="0" width="850" height="1050">
+</iframe>
+</section>
+<section id="semantic-segmentation" class="level3">
+<h3 class="anchored" data-anchor-id="semantic-segmentation">Semantic segmentation</h3>
+<p>Another great tool to use with images is <strong>semantic segmentation</strong>. This allows you to classify different pixels in an image.</p>
+<p>This is common for using aerial or satellite photography to determine land use, finding asphalt/roads, or greenery or crops. You can learn more about that <a href="https://normalai.org/images/semantic-segmentation.html">at Normal AI</a>.</p>
+<iframe src="https://wendys-llc-panoptic-segment-anything.hf.space" frameborder="0" width="850" height="650">
+</iframe>
+</section>
+<section id="object-detection" class="level3">
+<h3 class="anchored" data-anchor-id="object-detection">Object detection</h3>
+<p>Object detect might be the easiest to explain: it detects objects in images! It doesn’t always do a perfect job, though, as sometimes you want specific objects that the pre-trained models don’t know about.</p>
+<p>You can learn more about that <a href="https://normalai.org/images/instance-segmentation.html">at Normal AI</a>.</p>
+<iframe src="https://adirik-owl-vit.hf.space" frameborder="0" width="850" height="1450">
+</iframe>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

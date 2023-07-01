@@ -1,0 +1,13 @@
+/*-- scss:rules --*/
+
+.cell-output.cell-output-display pre code,
+.cell-output.cell-output-stdout pre code {
+    padding: 1em;
+    background: #fffbaa;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+}
+
+pre.sourceCode {
+    font-size: 0.8em;
+}
