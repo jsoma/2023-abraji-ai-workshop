@@ -104,7 +104,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#image-classification" id="toc-image-classification" class="nav-link" data-scroll-target="#image-classification">Image classification</a></li>
   <li><a href="#semantic-segmentation" id="toc-semantic-segmentation" class="nav-link" data-scroll-target="#semantic-segmentation">Semantic segmentation</a></li>
   <li><a href="#object-detection" id="toc-object-detection" class="nav-link" data-scroll-target="#object-detection">Object detection</a></li>
+  <li><a href="#image-generation" id="toc-image-generation" class="nav-link" data-scroll-target="#image-generation">Image generation</a></li>
   </ul></li>
+  <li><a href="#audio-models" id="toc-audio-models" class="nav-link" data-scroll-target="#audio-models">Audio models</a></li>
+  <li><a href="#finding-more-models-and-expanding-your-skills" id="toc-finding-more-models-and-expanding-your-skills" class="nav-link" data-scroll-target="#finding-more-models-and-expanding-your-skills">Finding more models and expanding your skills</a></li>
   </ul>
 </nav>
 </div>
@@ -571,6 +574,12 @@ São Paulo - LOCATION</code></pre>
 </div>
 </div>
 <p>Those numbers above might look awful, but they are how computers think about concepts! If two pieces of text have similar numbers, they’re probably about the same thing (…kind of).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/word-embeddings.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">A visual representation of word embeddings</figcaption>
+</figure>
+</div>
 <p>Let’s look at a better example of how a single-language and multi-language embedding might make sentences more or less similar to each other.</p>
 <div class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1334,17 +1343,37 @@ São Paulo - LOCATION</code></pre>
 <section id="semantic-segmentation" class="level3">
 <h3 class="anchored" data-anchor-id="semantic-segmentation">Semantic segmentation</h3>
 <p>Another great tool to use with images is <strong>semantic segmentation</strong>. This allows you to classify different pixels in an image.</p>
-<p>This is common for using aerial or satellite photography to determine land use, finding asphalt/roads, or greenery or crops. You can learn more about that <a href="https://normalai.org/images/semantic-segmentation.html">at Normal AI</a>.</p>
-<iframe src="https://wendys-llc-panoptic-segment-anything.hf.space" frameborder="0" width="850" height="650">
+<p>This is common for using aerial or satellite photography to determine land use, finding asphalt/roads, or greenery or crops. For example, you might look at all of the neighborhoods in a city and see which one has <a href="https://gothamist.com/news/which-nyc-neighborhoods-have-the-most-and-fewest-number-of-street-trees">the most coverage by trees</a>, or <a href="https://news.mongabay.com/2021/01/monitoring-tropical-deforestation-is-now-free-and-easy/">inspect deforestation using Global Forest Watch</a>.</p>
+<p>You can learn more about that <a href="https://normalai.org/images/semantic-segmentation.html">at Normal AI</a>. To use the example below, scroll down and click one of the example images.</p>
+<iframe src="https://wendys-llc-panoptic-segment-anything.hf.space" frameborder="0" width="850" height="950">
 </iframe>
 </section>
 <section id="object-detection" class="level3">
 <h3 class="anchored" data-anchor-id="object-detection">Object detection</h3>
-<p>Object detect might be the easiest to explain: it detects objects in images! It doesn’t always do a perfect job, though, as sometimes you want specific objects that the pre-trained models don’t know about.</p>
-<p>You can learn more about that <a href="https://normalai.org/images/instance-segmentation.html">at Normal AI</a>.</p>
-<iframe src="https://adirik-owl-vit.hf.space" frameborder="0" width="850" height="1450">
+<p>Object detection might be the easiest to explain: it detects objects in images! While object detection is easy to explain, I find it is difficult to find journalistic use cases for it. It has potential for face detection or finding cars or trucks in photographs, but I’m not sure of when that’s been used for journalism.</p>
+<p>It also doesn’t always do a perfect job: it’s pre-trained with some number of existing objects, but sometimes you want specific objects that the pre-trained models don’t know about.</p>
+<p>You can learn more about that <a href="https://normalai.org/images/instance-segmentation.html">at Normal AI</a>. To use the example below, scroll down and click one of the example images.</p>
+<iframe src="https://wendys-llc-owl-vit.hf.space" frameborder="0" width="850" height="1450">
 </iframe>
 </section>
+<section id="image-generation" class="level3">
+<h3 class="anchored" data-anchor-id="image-generation">Image generation</h3>
+<p>While <a href="https://openai.com/dall-e-2">DALL-E 2</a> was definitely the most popular image generation tool, I strongly recommend checking out <a href="https://docs.midjourney.com/">Midjourney</a> instead. It’s a little more complicated to use than DALL-E – it requires logging into their Discord server, a kind of chat room – and costs $8/month, but it’s worth a short subscription to see how well it performs!</p>
+</section>
+</section>
+<section id="audio-models" class="level2">
+<h2 class="anchored" data-anchor-id="audio-models">Audio models</h2>
+<p><a href="https://openai.com/research/whisper">Whisper</a> is a model that transcribes audio. People have generally been very impressed by it!</p>
+<p>The example below uses a large, more skillful version of the model, and it should be able to work in both English and non-English languages. I recommend using the “Record from microphone” and recording a snippet of yourself speaking.</p>
+<iframe src="https://sanchit-gandhi-whisper-large-v2.hf.space" frameborder="0" width="850" height="650">
+</iframe>
+</section>
+<section id="finding-more-models-and-expanding-your-skills" class="level2">
+<h2 class="anchored" data-anchor-id="finding-more-models-and-expanding-your-skills">Finding more models and expanding your skills</h2>
+<p>I recommend browsing the <a href="https://huggingface.co/models">Hugging Face models page</a> or their <a href="https://huggingface.co/spaces">spaces page</a>, which shows examples of small projects people have made. You can also keep your eyes and ears open – when you hear about fancy models being released or available, check and see if they’re on Hugging Face!</p>
+<p>My old web site <a href="https://investigate.ai/">investigate.ai: Data science for journalists</a> has a lage number of projects, but a number of them are built using “old” technology. They still work, but for example using a fine-tuned language model is probably a better route to text classification than the custom model I show you.</p>
+<p>You can also keep up to date with AI by reading <a href="https://jack-clark.net/">Jack Clark’s Import AI</a>, a weekly newsletter. I hate newsletters but it’s pretty good!</p>
+<p>If you’d like to get deeper into using LLMs as part of your workflow, learning how <a href="https://python.langchain.com/docs/get_started/introduction.html">Langchain</a> or <a href="https://gpt-index.readthedocs.io/en/latest/">Llama Index</a> work could be a good investment. Langchain is probably more popular, but the examples are often confusing or have older, broken code. I also recommend taking a look at YouTube for both of those tools!</p>
 </section>
 
 </main>
