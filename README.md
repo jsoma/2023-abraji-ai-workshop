@@ -1,10 +1,10 @@
-# AI tools for Journalism Workshop ([full tutorial](https://jsoma.github.io/2023-abraji-ai-workshop/))
+# AI tools for Journalism Workshop ([full tutorial in English](https://jsoma.github.io/2023-abraji-ai-workshop/), [auto-generated Portuguese translation](https://jsoma-github-io.translate.goog/2023-abraji-ai-workshop/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=en&_x_tr_pto=wapp))
 
 [Abraji Conference 2023](https://congresso.abraji.org.br/)
 
 Jonathan Soma / [js4571@columbia.edu](mailto:js4571@columbia.edu) / [@dangerscarf](https://twitter.com/dangerscarf)
 
-You can see the slides [here](AI%20tools.pdf), but you probably want the [full website walkthrough](https://jsoma.github.io/2023-abraji-ai-workshop/)
+You can see the slides [here](AI%20tools.pdf), but you probably want the [full website walkthrough](https://jsoma.github.io/2023-abraji-ai-workshop/).
 
 Other sites that can help you learn:
 
