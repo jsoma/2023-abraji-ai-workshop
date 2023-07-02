@@ -84,6 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
   <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a>
   <ul class="collapse">
   <li><a href="#sentiment-analysis" id="toc-sentiment-analysis" class="nav-link" data-scroll-target="#sentiment-analysis">Sentiment analysis</a></li>
@@ -108,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#audio-models" id="toc-audio-models" class="nav-link" data-scroll-target="#audio-models">Audio models</a></li>
   <li><a href="#finding-more-models-and-expanding-your-skills" id="toc-finding-more-models-and-expanding-your-skills" class="nav-link" data-scroll-target="#finding-more-models-and-expanding-your-skills">Finding more models and expanding your skills</a></li>
+  <li><a href="#contact-me" id="toc-contact-me" class="nav-link" data-scroll-target="#contact-me">Contact me</a></li>
   </ul>
 </nav>
 </div>
@@ -134,8 +136,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Abraji Conference 2023</p>
 <p>Auto-generated Portuguese translation can be found here: <a href="https://jsoma-github-io.translate.goog/2023-abraji-ai-workshop/?_x_tr_sl=en&amp;_x_tr_tl=pt&amp;_x_tr_hl=en&amp;_x_tr_pto=wapp">Versão em português</a></p>
 <p>GitHub repo can be found at <a href="https://github.com/jsoma/2023-abraji-ai-workshop">https://github.com/jsoma/2023-abraji-ai-workshop</a></p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This web page was made from a Jupyter notebook! To see how I made it, <a href="https://github.com/jsoma/quarto-tutorial">see this tutorial about Quarto</a>.</p>
+</div>
+</div>
+</div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><strong>Welcome to the page for my 2023 Abraji Data Sunday session!</strong></p>
+<p>This talk hopes to be as an introduction to a few key concepts to understanding artifical intelligence and machine learning. The biggest lessons to take away from this is what does AI people mean when they talk about “models,” and what are some things these models might be able to do? We focus on journalism, but I throw in a few options, too.</p>
+<p>On this page you can find:</p>
+<ul>
+<li>Working code snippets for everything in my talk</li>
+<li>More in-depth information about each topic covered</li>
+<li>Links to AI-driven journalism projects</li>
+<li>Links to tutorials I’ve written on other topics</li>
+<li>Useful or neat things I didn’t cover in my talk.</li>
+</ul>
+</section>
+<section id="models" class="level2">
+<h2 class="anchored" data-anchor-id="models">Models</h2>
 <p>Models are what AI and machine learning are both based on. You have probably heard of some:</p>
 <ul>
 <li><strong>Text models:</strong> GPT-2, GPT-3, GPT-3.5-turbo, GPT-4, Bard, Claude, LLaMa</li>
@@ -167,18 +192,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <p><strong>Let’s try sentiment analysis!</strong> Here is a small example, using the <code>distilbert-base-uncased-finetuned-sst-2-english</code>.</p>
-<div class="cell">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we'll install the "transformers" library from Hugging Face</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q <span class="op">--</span>upgrade transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[notice] A new release of pip available: 22.3.1 -&gt; 23.1.2
+[notice] To update, run: python -m pip install --upgrade pip</code></pre>
+</div>
 </div>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"I enjoyed eating the sandwich"</span>]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"I enjoyed eating the sandwich"</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"9a3ab1344f834f49bb218ac900fa6349","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -203,18 +233,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[{'label': 'POSITIVE', 'score': 0.9996883869171143}]</code></pre>
 </div>
 </div>
-<p>Models are not perfect, and they only know what they know. If we <a href="https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english">read the details of the model</a> we learn it is based on English. Because of this, maybe it is not very good at Portuguese?</p>
+<p>This tells us that the sentence “I enjoyed eating my sandwich” is <code>POSITIVE</code>, and with a score of <code>0.999</code> which means the model is <em>very</em> certain.</p>
+<p>Models are not perfect, and they only know what they know. If we <a href="https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english">read the details of the model</a> we learn it is based on English. Because of this fact, how does it do if we try to use it on Portuguese text?</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"distilbert-base-uncased-finetuned-sst-2-english"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>[{'label': 'POSITIVE', 'score': 0.5782410502433777}]</code></pre>
 </div>
 </div>
-<p>If we want to use Portuguese, we probably need a multi-lingual model. We could also find a model that <em>only</em> knows Portuguese, but it’s probably easier to find a model that speaks many languages and includes Portuguese.</p>
+<p>The model says this sentence is <code>POSITIVE</code>, but it is much less certain - <code>0.578</code>. This feels like it isn’t working so well, but fortunately it’s easy to do better.</p>
+<p>If we want to use Portuguese, we probably need a <strong>multi-lingual model.</strong> We could also find a model that <em>only</em> knows Portuguese, but it’s probably easier to find a model that speaks many languages and includes Portuguese.</p>
 <p>We use <a href="https://huggingface.co/models?language=multilingual&amp;sort=downloads&amp;search=sentiment">the Hugging Face website</a> to find one that looks promising:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -226,14 +258,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>This is a multilingual XLM-roBERTa-base model trained on ~198M tweets and finetuned for sentiment analysis. The sentiment fine-tuning was done on 8 languages (Ar, En, Fr, De, Hi, It, Sp, Pt) but it can be used for more languages (see paper for details).</p>
 </blockquote>
-<p><code>Pt</code> is Portuguese, so it sounds good to me!</p>
-<p>To use this new model, which we just replace <code>model="..."</code> with its name.</p>
+<p>We don’t know what many of those terms mean, but <code>Pt</code> is Portuguese, so it sounds good to me!</p>
+<p>To use this new model, which we just replace <code>model="..."</code> in our previous code with the new model’s name. The pipeline will automatically download it from Hugging Face and use it to judge our text.</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"cardiffnlp/twitter-xlm-roberta-base-sentiment"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                             model<span class="op">=</span><span class="st">"cardiffnlp/twitter-xlm-roberta-base-sentiment"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="st">"Gostei de comer o sanduíche"</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"66e053eb159f4dd3a80e808e61a9d190","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -258,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[{'label': 'positive', 'score': 0.8415056467056274}]</code></pre>
 </div>
 </div>
-<p>Wonderful! So far we have learned:</p>
+<p>Wonderful! While <code>0.841</code> is not as high as <code>0.999</code>, it’s definitely more certain about the text being positive than the English model was. So far we have learned:</p>
 <ul>
 <li>There isn’t just one “sentiment analysis” – different models give different results!</li>
 <li>Different models might perform better or worse at different tasks or languages</li>
@@ -267,14 +299,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="training-custom-models" class="level3">
 <h3 class="anchored" data-anchor-id="training-custom-models">Training custom models</h3>
-<p>For sentiment analysis, one traditional way of training a model would be to show it examples of positive or negative sentences, and say “this one is positive!” or “this one is negative!” Over time the machine learns which words are associated with a positive sentence, and which are associated with a negative sentence.</p>
+<p>For sentiment analysis, the traditional way of training a model would be to show it examples of positive or negative sentences, and say “this one is positive!” or “this one is negative!” Over time the machine learns which words are associated with a positive sentence, and which are associated with a negative sentence.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/training-1.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Training a model</figcaption>
 </figure>
 </div>
-<p>This doesn’t have to be about sentiment analysis, though! You can use this to put text into <em>any</em> type of categoy. A <strong>classification model</strong> is the general name for a model that puts content into different categories (or classes).</p>
+<p>This doesn’t have to be about sentiment analysis, though! You can use this to put text into <em>any</em> type of categoy.</p>
+<p>A model that puts content into <strong>different categories</strong> is called a <strong>classification model</strong>. A sentiment analysis model is just one simple example of a classification model.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/classification-model.png" class="img-fluid figure-img"></p>
@@ -293,22 +326,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="fine-tuned-models" class="level3">
 <h3 class="anchored" data-anchor-id="fine-tuned-models">Fine-tuned models</h3>
-<p>Instead of having a model learn language from zero, you can also use a pre-built model, then provide it a little extra information for your purpose. This is called “fine tuning.”</p>
+<p>Instead of having a model learn language from zero, you can also use a pre-built model that knows a little language, then provide it a <em>little extra information</em> to make it good at the job you want it to do. It’s like hiring a teenager and teaching them to understand your text instead of hiring a baby that has never looked at a book before! This approach is called “fine tuning.”</p>
 <p>For example, we can look at <a href="https://huggingface.co/cardiffnlp/twitter-xlm-roberta-base-sentiment">the details</a> for the <code>cardiffnlp/twitter-xlm-roberta-base-sentiment</code> model we used before:</p>
 <blockquote class="blockquote">
 <p>This is a multilingual XLM-roBERTa-base model <strong>trained on ~198M tweets</strong> and <strong>finetuned for sentiment analysis</strong>. The sentiment fine-tuning was done on 8 languages (Ar, En, Fr, De, Hi, It, Sp, Pt) but it can be used for more languages (see paper for details).</p>
 </blockquote>
 <p>It read almost 200 million tweets to learn how the language in tweets works, then it was taught positive and negative sentiment afterwards. These models almost always perform better than the small custom models from the previous section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fine-tune-flow.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">fine-tuned model flow</figcaption>
+</figure>
+</div>
 <p>To make a fine-tuned model, you can use the <a href="https://ui.autotrain.huggingface.co/">Hugging Face AutoTrainer</a> to make it very easily. You upload a spreadsheet of your marked dataset, then it fine-tunes several models for you, and shows you the one that performed the best.</p>
 <p>For example, <a href="https://huggingface.co/wendys-llc/creepy-wapo">this is a fine-tuned model</a> I made for the Washington Post comments project. You can use it exactly like the sentiment analysis one! Let’s try it with two sentences:</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(model<span class="op">=</span><span class="st">"wendys-llc/creepy-wapo"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I love the app, talking to people is fun"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Be careful talking to men, they all want nudes :("</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline <span class="op">=</span> pipeline(model<span class="op">=</span><span class="st">"wendys-llc/creepy-wapo"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I love the app, talking to people is fun"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Be careful talking to men, they all want nudes :("</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sentiment_pipeline(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"c1c3562d600a4a6baed2c6e488302e3a","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -325,20 +364,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="large-language-models" class="level3">
 <h3 class="anchored" data-anchor-id="large-language-models">Large language models</h3>
 <p>Large language models have changed everything! They are “large” because they know a lot more than previous models, and can do many tasks <em>without</em> fine tuning. They’ve read so much of the internet that they automatically know what positive and negative statements are!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/llm-flow.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">large language model flow</figcaption>
+</figure>
+</div>
 <p>You might be familiar with using ChatGPT to talk to the GPT model, but you can also use it in Python through an API. You need to <a href="https://platform.openai.com/">register for an API key</a> for the code below to work.</p>
 <p>I personally like to use tools like GPT with <a href="https://python.langchain.com/docs/get_started/quickstart">Langchain</a>, a library that makes working with large language models a little easier. After you set up an API key, you then need to install the libraries for both <code>openai</code> and <code>langchain</code>.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q <span class="op">--</span>upgrade openai langchain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q <span class="op">--</span>upgrade openai langchain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(<span class="st">"Give me a recipe for chocolate-chip cookies"</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You'll need your own OpenAI GPT API key! This one was mine,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># but I've deactivated it so I can publish this.</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(<span class="st">"Give me a recipe for chocolate-chip cookies"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sure! Here's a classic recipe for chocolate chip cookies:
 
@@ -378,33 +425,33 @@ Note: Feel free to customize your cookies by adding chopped nuts, using differen
 </section>
 <section id="zero-shot-classification" class="level3">
 <h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h3>
-<p>We can now create a classifier using GPT <em>without training it at all</em>. We just need to tell it what we are looking for! This is called <strong>zero-shot classification</strong> because it takes zero examples for the classifier to learn.</p>
+<p>Now that we can interact with GPT using Python, we can create a classifier <em>without training or fine-tuning at all</em>. We just need to give GPT the text and tell it what categories we are looking for. This is called <strong>zero-shot classification</strong> because it takes zero examples for the classifier to learn.</p>
 <p>For example, maybe I want to classify the text of a bill.</p>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: A Bill to Regulate the Sulfur Emissions of Coal-Fired Energy</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">Plants in the State of New York.</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: A Bill to Regulate the Sulfur Emissions of Coal-Fired Energy</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Plants in the State of New York.</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ENVIRONMENT</code></pre>
 </div>
 </div>
 <p>It’s so easy!!! You can also make use of <a href="https://www.w3schools.com/python/ref_string_format.asp">Python’s <code>.format</code> method</a> to make things even simpler if you want to make a lot of requests.</p>
 <div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(template.<span class="bu">format</span>(bill_text<span class="op">=</span><span class="st">"This fills in the spot in the template"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(template.<span class="bu">format</span>(bill_text<span class="op">=</span><span class="st">"This fills in the spot in the template"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Categorize the following text as being about ENVIRONMENT, GUN CONTROL,
@@ -415,23 +462,23 @@ Text: This fills in the spot in the template
 </div>
 </div>
 <div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>bills <span class="op">=</span> [</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Allow Additional Refugees In Upstate New York"</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Close Down Coal-fired Power Plants"</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Banning Assault Rifles at Public Events"</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bill <span class="kw">in</span> bills:</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> template.<span class="bu">format</span>(bill_text<span class="op">=</span>bill)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> llm.predict(prompt)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(bill, <span class="st">"is"</span>, response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">Categorize the following text as being about ENVIRONMENT, GUN CONTROL,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="st">or IMMIGRATION. Respond with only the category.</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">Text: </span><span class="sc">{bill_text}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>bills <span class="op">=</span> [</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Allow Additional Refugees In Upstate New York"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Close Down Coal-fired Power Plants"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A Bill to Banning Assault Rifles at Public Events"</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bill <span class="kw">in</span> bills:</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> template.<span class="bu">format</span>(bill_text<span class="op">=</span>bill)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(bill, <span class="st">"is"</span>, response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A Bill to Allow Additional Refugees In Upstate New York is IMMIGRATION
 A Bill to Close Down Coal-fired Power Plants is ENVIRONMENT
@@ -444,25 +491,36 @@ A Bill to Banning Assault Rifles at Public Events is GUN CONTROL</code></pre>
 <section id="named-entity-recognition" class="level2">
 <h2 class="anchored" data-anchor-id="named-entity-recognition">Named Entity Recognition</h2>
 <p>Named entity recognition is the ability to recognize people, places, companies, and other things inside of your text. It’s like classification, but for <em>parts</em> of a text. It’s often used to extract the names of people from documents.</p>
+<p>A use case for NER might be assuring gender parity for sources in your publication. You can <a href="https://worldpressinstitute.org/ai-to-tackle-gender-bias-in-media-journalism/">read here</a> about wonderful work being done in this field by La Nación.</p>
 <section id="using-spacy" class="level3">
 <h3 class="anchored" data-anchor-id="using-spacy">Using spaCy</h3>
-<p>Traditionally, you would use a tool like <a href="https://spacy.io/">spaCy</a> to do this. You’d probably still do that, honestly, it works pretty well and (unlike GPT models) it’s free!</p>
+<p>Traditionally, you would use a tool like <a href="https://spacy.io/">spaCy</a> to do named entity recognition. You’d probably <em>still</em> do that, honestly, it works pretty well and (unlike GPT models) it’s free!</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you’ve ever heard of NLTK, a common text analysis library, spaCy is the cool, fun, modern version.</p>
+</div>
+</div>
+</div>
 <p>We’ll start by installing spaCy and downloading two models: one is a medium-sized English model, and the other is focused on Portuguese. You can find these models on <a href="https://spacy.io/usage">the spaCy usage page</a>.</p>
 <div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q spacy</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download en_core_web_md</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download pt_core_news_lg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q spacy</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download en_core_web_md</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>python <span class="op">-</span>m spacy download pt_core_news_lg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s try them both out. We’ll start with <code>en_core_web_md</code> for English text.</p>
 <div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo."</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo."</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jonathan Soma PERSON
 the Abraji Conference FAC
@@ -471,14 +529,14 @@ Sāo Paulo GPE</code></pre>
 </div>
 <p>Does it work as well for Portuguese?</p>
 <div class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"en_core_web_md"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jonathan Soma PERSON
 Congresso ORG</code></pre>
@@ -486,14 +544,14 @@ Congresso ORG</code></pre>
 </div>
 <p>Maybe we can also try the specific Portuguese model to see if it performs any better.</p>
 <div class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"pt_core_news_lg"</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spacy</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> spacy.load(<span class="st">"pt_core_news_lg"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(text)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ent <span class="kw">in</span> doc.ents:</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ent.text, ent.label_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jonathan Soma PER
 Congresso da Abraji MISC
@@ -505,38 +563,40 @@ São Paulo LOC</code></pre>
 <h3 class="anchored" data-anchor-id="using-an-llm">Using an LLM</h3>
 <p>In the same way we can use an LLM for classification, we can also use it for named entity recognition!</p>
 <div class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo.</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You'll need your own OpenAI GPT API key! This one was mine,</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># but I've deactivated it so I can publish this.</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY, model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Hi, I'm Jonathan Soma, and I'm giving this talk at the Abraji Conference in Sāo Paulo.</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jonathan Soma (PERSON), Abraji Conference (EVENT), Sāo Paulo (LOCATION)</code></pre>
 </div>
 </div>
 <p>I didn’t really want those parentheses, but it’s pretty good! Let’s see how it works with Portuguese:</p>
 <div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo.</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">List the named entities in the text below. Use a comma to</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="st">separate the entity and the type of entity. Valid entity</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">types are PERSON, EVENT, ORGANIZATION, and LOCATION.</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="st">Text: Olá, eu sou Jonathan Soma e estou dando esta palestra na Congresso da Abraji em São Paulo.</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> llm.predict(prompt)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Jonathan Soma - PERSON
 Congresso da Abraji - EVENT
@@ -550,17 +610,17 @@ São Paulo - LOCATION</code></pre>
 <h2 class="anchored" data-anchor-id="document-search-and-similarity">Document search and similarity</h2>
 <p>Investigations often involve combing through documents that are in different languages. <a href="https://qz.com/1786896/ai-for-investigations-sorting-through-the-luanda-leaks">How Quartz used AI to sort through the Luanda Leaks</a> gives a good background on the difficulty involved in the process!</p>
 <div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q sentence<span class="op">-</span>transformers sentencepiece</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q sentence<span class="op">-</span>transformers sentencepiece</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the code below we generate <strong>text embeddings</strong>. You can read <a href="https://investigate.ai/text-analysis/word-embeddings/">a writeup of mine about embeddings here</a>, but the short description is that words and sentences are turned into concepts. Instead of matches based on exact words, or even fish-fishes-fishing, you can match with general ideas.</p>
 <p>As a bonus: if you use a multi-lingual model, the same concepts can be matched even if the documents are in different languages!</p>
 <div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [<span class="st">"This is an example sentence"</span>]</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(embeddings[<span class="dv">0</span>][:<span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sentence_transformers <span class="im">import</span> SentenceTransformer</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [<span class="st">"This is an example sentence"</span>]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(embeddings[<span class="dv">0</span>][:<span class="dv">50</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0.0676569   0.06349581  0.0487131   0.07930496  0.03744796  0.00265277
   0.03937485 -0.00709837  0.0593615   0.03153696  0.06009803 -0.05290522
@@ -582,38 +642,38 @@ São Paulo - LOCATION</code></pre>
 </div>
 <p>Let’s look at a better example of how a single-language and multi-language embedding might make sentences more or less similar to each other.</p>
 <div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Molly ate a fish"</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Jen consumed a carp"</span>,</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I would like to sell you a house"</span>,</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Я пытаюсь купить дачу"</span>, <span class="co"># I'm trying to buy a summer home</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"J'aimerais vous louer un grand appartement"</span>, <span class="co"># I would like to rent a large apartment to you</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a wonderful investment opportunity"</span>,</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Это прекрасная возможность для инвестиций"</span>, <span class="co"># investment opportunity</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"C'est une merveilleuse opportunité d'investissement"</span>, <span class="co"># investment opportunity</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"これは素晴らしい投資機会です"</span>, <span class="co"># investment opportunity</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"野球はあなたが思うよりも面白いことがあります"</span>, <span class="co"># baseball can be more interesting than you think</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Baseball can be interesting than you'd think"</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>sentences <span class="op">=</span> [</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Molly ate a fish"</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Jen consumed a carp"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I would like to sell you a house"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Я пытаюсь купить дачу"</span>, <span class="co"># I'm trying to buy a summer home</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"J'aimerais vous louer un grand appartement"</span>, <span class="co"># I would like to rent a large apartment to you</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a wonderful investment opportunity"</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Это прекрасная возможность для инвестиций"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"C'est une merveilleuse opportunité d'investissement"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"これは素晴らしい投資機会です"</span>, <span class="co"># investment opportunity</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"野球はあなたが思うよりも面白いことがあります"</span>, <span class="co"># baseball can be more interesting than you think</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Baseball can be interesting than you'd think"</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/all-MiniLM-L6-v2'</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="49">
 <style type="text/css">
 #T_040a6_row0_col0, #T_040a6_row1_col1, #T_040a6_row2_col2, #T_040a6_row3_col3, #T_040a6_row4_col4, #T_040a6_row5_col5, #T_040a6_row6_col6, #T_040a6_row7_col7, #T_040a6_row8_col8, #T_040a6_row9_col9, #T_040a6_row10_col10 {
@@ -968,21 +1028,21 @@ São Paulo - LOCATION</code></pre>
 </div>
 <p>Sentence that are about the same thing don’t match, just because they’re in different languages! Don’t worry, there are some <a href="https://www.sbert.net/docs/pretrained_models.html#multi-lingual-models">pretrained multilingual models</a>, let’s see how much better that one looks.</p>
 <div class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/distiluse-base-multilingual-cased-v2'</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> SentenceTransformer(<span class="st">'sentence-transformers/distiluse-base-multilingual-cased-v2'</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> model.encode(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> cosine_similarity</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute similarities exactly the same as we did before!</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>similarities <span class="op">=</span> cosine_similarity(embeddings)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn into a dataframe</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(similarities,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>            index<span class="op">=</span>sentences,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>sentences) <span class="op">\</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>            .style <span class="op">\</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>            .background_gradient(axis<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="51">
 <style type="text/css">
 #T_4db7a_row0_col0, #T_4db7a_row1_col1, #T_4db7a_row2_col2, #T_4db7a_row3_col3, #T_4db7a_row4_col4, #T_4db7a_row5_col5, #T_4db7a_row6_col6, #T_4db7a_row7_col7, #T_4db7a_row8_col8, #T_4db7a_row9_col9, #T_4db7a_row10_col10 {
@@ -1337,7 +1397,43 @@ São Paulo - LOCATION</code></pre>
 <p><a href="https://texty.org.ua/d/2018/amber_eng/">Leprosy of the Land</a> was an <strong>image classification</strong> problem, which is practically the same as text classification! If you wanted to do a similar problem, you can similarly train a custom model or fine-tune an existing image model.</p>
 <p>To fine-tune an existing image model, I again recommend <a href="https://ui.autotrain.huggingface.co/">Hugging Face AutoTrain</a>. You upload folders with several examples of each category or class you’re looking for, and it automatically creates a model for you.</p>
 <p>You can see <a href="http://github.com/jsoma/nicar23-huggingface">a tutorial I gave on this (with data) here on GitHub</a>, or <a href="https://huggingface.co/wendys-llc/autotrain-amber-mines-42327108538">the completed model here</a>.</p>
-<iframe src="https://datatrooper-zero-shot-image-classification.hf.space" frameborder="0" width="850" height="1050">
+<p>We’ll start by opening our image. Those little dots are amber mines!</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(<span class="st">"amber-example-1.png"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<p><img src="Abraji%20AI%20tools%20website_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now we will load in our model, use a “feature extractor” to convert our image to the format the model wants, and then ask it whether the image contains amber mines or not.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoFeatureExtractor, AutoModelForImageClassification</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load our model</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>extractor <span class="op">=</span> AutoFeatureExtractor.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoModelForImageClassification.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to encoding the model understands</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>encoding <span class="op">=</span> extractor(image, return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the encoded image to the model, get the outputs</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> model(<span class="op">**</span>encoding)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> outputs.logits</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Find what class (what category) it predicted</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>predicted_class_idx <span class="op">=</span> logits.argmax(<span class="op">-</span><span class="dv">1</span>).item()</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the answer</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Predicted class:"</span>, model.config.id2label[predicted_class_idx])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Predicted class: positive</code></pre>
+</div>
+</div>
+<p>Success! It took a few more lines of code than the text-based examples above, but it isn’t too bad. There are a good number of technical pieces in there – tensors, logits, argmax – but you don’t 100% need to know how they work as long as you just use the same code all of the time. If you’re interested in getting deeper into machine learning, though, it’s probably good to read up on them.</p>
+<p>While the amber mines example is a fine-tuned model, we can also use <strong>zero-shot image classification</strong>, just like we did with the text up above. To see an example of of how zero-shot image classification might work, select one of the images below. You can also <a href="https://huggingface.co/openai/clip-vit-base-patch32">read up on the model this app uses</a>.</p>
+<iframe src="https://datatrooper-zero-shot-image-classification.hf.space" frameborder="0" width="850" height="1250">
 </iframe>
 </section>
 <section id="semantic-segmentation" class="level3">
@@ -1374,6 +1470,10 @@ São Paulo - LOCATION</code></pre>
 <p>My old web site <a href="https://investigate.ai/">investigate.ai: Data science for journalists</a> has a lage number of projects, but a number of them are built using “old” technology. They still work, but for example using a fine-tuned language model is probably a better route to text classification than the custom model I show you.</p>
 <p>You can also keep up to date with AI by reading <a href="https://jack-clark.net/">Jack Clark’s Import AI</a>, a weekly newsletter. I hate newsletters but it’s pretty good!</p>
 <p>If you’d like to get deeper into using LLMs as part of your workflow, learning how <a href="https://python.langchain.com/docs/get_started/introduction.html">Langchain</a> or <a href="https://gpt-index.readthedocs.io/en/latest/">Llama Index</a> work could be a good investment. Langchain is probably more popular, but the examples are often confusing or have older, broken code. I also recommend taking a look at YouTube for both of those tools!</p>
+</section>
+<section id="contact-me" class="level2">
+<h2 class="anchored" data-anchor-id="contact-me">Contact me</h2>
+<p>Feel free to reach out – I’m more than happy to provide ideas, guidance, lectures, etc etc etc. You can find me via email at <a href="mailto:js4571@columbia.edu">js4571@columbia.edu</a> or on Twitter at <a href="https://twitter.com/dangerscarf"><span class="citation" data-cites="dangerscarf">@dangerscarf</span></a>. I also run two data journalism programs at Columbia: the 12-month <a href="https://journalism.columbia.edu/ms-data-journalism">Data Journalism MS</a> and the <a href="https://ledeprogram.com/">Lede Program</a>, a summer intensive.</p>
 </section>
 
 </main>
