@@ -99,6 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-an-llm" id="toc-using-an-llm" class="nav-link" data-scroll-target="#using-an-llm">Using an LLM</a></li>
   </ul></li>
   <li><a href="#document-search-and-similarity" id="toc-document-search-and-similarity" class="nav-link" data-scroll-target="#document-search-and-similarity">Document search and similarity</a></li>
+  <li><a href="#summarization" id="toc-summarization" class="nav-link" data-scroll-target="#summarization">Summarization</a></li>
   <li><a href="#limitations-of-large-language-models" id="toc-limitations-of-large-language-models" class="nav-link" data-scroll-target="#limitations-of-large-language-models">Limitations of large language models</a></li>
   <li><a href="#image-based-models" id="toc-image-based-models" class="nav-link" data-scroll-target="#image-based-models">Image-based models</a>
   <ul class="collapse">
@@ -1381,6 +1382,76 @@ São Paulo - LOCATION</code></pre>
 </div>
 <p>If you’re interested in how this might work with GPT or other large language model, you might want to check out <a href="https://github.com/jsoma/mediaparty-folktales">this GitHub repo</a>.</p>
 </section>
+<section id="summarization" class="level2">
+<h2 class="anchored" data-anchor-id="summarization">Summarization</h2>
+<p>I personally think it’s best to keep LLM-generated content to be reporter-facing, not user-facing. A journalist’s only job is to be accurate, but LLMs love to make things up. The NYT recently said <a href="https://twitter.com/MitaliLive/status/1673975937145397256?s=20">AI takes too much time to fact-check to be useful</a> and <a href="https://generative-ai-newsroom.com/summaries-in-danish-with-openai-cbb814a119f2">a Danish newsroom found LLM-generated article summaries inadequate around half the time</a>:</p>
+<blockquote class="blockquote">
+<p>I hope to reach a point where we can trust the summaries and publish them directly without a human in the loop, but we’re not there yet. In the rest of this post I examine the quality of these AI-generated summaries and the ongoing need for a human in the loop.</p>
+</blockquote>
+<p><em>But</em> if you’re interested in how that might work, we can use <a href="https://python.langchain.com/docs/modules/chains/popular/summarize.html">Langchain for simple document summarization</a>. In this example, we’re going to summarize a Hungarian folktale into English.</p>
+<p>We’ll start by <strong>reading in the text.</strong></p>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.document_loaders <span class="im">import</span> TextLoader</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> RecursiveCharacterTextSplitter</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> TextLoader(<span class="st">'folktale.txt'</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> loader.load()</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(chunk_size<span class="op">=</span><span class="dv">2500</span>)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(documents)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="68">
+<pre><code>20</code></pre>
+</div>
+</div>
+<p>Because of <strong>token limits</strong> (see below), we can only send around 4000 tokens (3000 words) to the LLM at a time. As a result, we need to split the document into 2500-token chunks (around 1900 words each) to send individually. Later on we’ll combine the summaries into one larger summary.</p>
+<p>Now we’ll connect to our friend GPT…</p>
+<p>Then we connect to our good friend GPT…</p>
+<div class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> ChatOpenAI</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You'll need your own OpenAI GPT API key! This one was mine,</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># but I've deactivated it so I can publish this.</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> <span class="st">"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"</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to the LLM</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(openai_api_key<span class="op">=</span>API_KEY,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>                 model_name<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>                 temperature<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Summarization of long documents has a lot of little tricks to make it successful. In this case we’re going to use a custom prompt: while it isn’t necessary, I think it’s probably better to have more control.</p>
+<p>You can see a few other approaches <a href="https://python.langchain.com/docs/modules/chains/popular/summarize.html">on this awful Langchain page</a> – some of them don’t work, or they perfom the same task in different ways without explaining the benefits of one or another, or have other problems.</p>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain <span class="im">import</span> PromptTemplate</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains.summarize <span class="im">import</span> load_summarize_chain</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>prompt_template <span class="op">=</span> <span class="st">"""Write a concise summary of the following text. Since it's a folktale, it's</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="st">important that the summary include the challenges the main character might face.</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="st">TEXT: </span><span class="sc">{text}</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="st">CONCISE SUMMARY IN ENGLISH:"""</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>PROMPT <span class="op">=</span> PromptTemplate(template<span class="op">=</span>prompt_template, input_variables<span class="op">=</span>[<span class="st">"text"</span>])</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> load_summarize_chain(llm,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>                             chain_type<span class="op">=</span><span class="st">"map_reduce"</span>,</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>                             return_intermediate_steps<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>                             map_prompt<span class="op">=</span>PROMPT,</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                             combine_prompt<span class="op">=</span>PROMPT)</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> chain({<span class="st">"input_documents"</span>: docs}, return_only_outputs<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It takes a while to run this step, because it has to summarize each and every one of the chunks, then summarize the summaries. If we were using GPT-4 with larger token limits we would be able to do this more quickly, even if it did cost more.</p>
+<p>Let’s look at the output!</p>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">'output_text'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The text is a folktale about a king who returns home from war and learns that he has a son he didn't know about. The son, named Raadó, is taken by a powerful fairy king in exchange for the information. Raadó follows the instructions of a beautiful fairy to win the love of a princess and prove himself to the fairy king. He faces challenges in keeping their love a secret and proving his abilities to the queen. Raadó also faces challenges in completing tasks given to him by the king, such as clearing a forest and riding fiery horses. He is able to overcome these challenges with the help of magical assistance and his own determination. The story ends with Raadó and the princess being reunited and living happily ever after.</code></pre>
+</div>
+</div>
+<p>Seems fine, but remember the link from before: <a href="https://generative-ai-newsroom.com/summaries-in-danish-with-openai-cbb814a119f2">most article summaries didn’t pass muster once they were reviewed!</a>.</p>
+</section>
 <section id="limitations-of-large-language-models" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-large-language-models">Limitations of large language models</h2>
 <p>The <strong>knowledge cutoff</strong> is a big one, where they only know what’s in their training data. In the case of GPT, it stopped getting new information in September 2021.</p>
@@ -1399,38 +1470,38 @@ São Paulo - LOCATION</code></pre>
 <p>You can see <a href="http://github.com/jsoma/nicar23-huggingface">a tutorial I gave on this (with data) here on GitHub</a>, or <a href="https://huggingface.co/wendys-llc/autotrain-amber-mines-42327108538">the completed model here</a>.</p>
 <p>We’ll start by opening our image. Those little dots are amber mines!</p>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pillow is a Python image processing library</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">--</span>quiet pillow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pillow is a Python image processing library</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">--</span>quiet pillow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(<span class="st">"amber-example-1.png"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> Image.<span class="bu">open</span>(<span class="st">"amber-example-1.png"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<p><img src="Abraji%20AI%20tools%20website_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
+<p><img src="Abraji%20AI%20tools%20website_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Now we will load in our model, use a “feature extractor” to convert our image to the format the model wants, and then ask it whether the image contains amber mines or not.</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoFeatureExtractor, AutoModelForImageClassification</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load our model</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>extractor <span class="op">=</span> AutoFeatureExtractor.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoModelForImageClassification.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to encoding the model understands</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>encoding <span class="op">=</span> extractor(image, return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the encoded image to the model, get the outputs</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> model(<span class="op">**</span>encoding)</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> outputs.logits</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Find what class (what category) it predicted</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>predicted_class_idx <span class="op">=</span> logits.argmax(<span class="op">-</span><span class="dv">1</span>).item()</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the answer</span></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Predicted class:"</span>, model.config.id2label[predicted_class_idx])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoFeatureExtractor, AutoModelForImageClassification</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load our model</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>extractor <span class="op">=</span> AutoFeatureExtractor.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoModelForImageClassification.from_pretrained(<span class="st">"wendys-llc/autotrain-amber-mines-42327108538"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to encoding the model understands</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>encoding <span class="op">=</span> extractor(image, return_tensors<span class="op">=</span><span class="st">"pt"</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Send the encoded image to the model, get the outputs</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>outputs <span class="op">=</span> model(<span class="op">**</span>encoding)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>logits <span class="op">=</span> outputs.logits</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Find what class (what category) it predicted</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>predicted_class_idx <span class="op">=</span> logits.argmax(<span class="op">-</span><span class="dv">1</span>).item()</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the answer</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Predicted class:"</span>, model.config.id2label[predicted_class_idx])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Predicted class: positive</code></pre>
 </div>
